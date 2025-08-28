@@ -12,12 +12,13 @@ public class UIManager : MonoBehaviour
     [Header("------UI Panels------------")]
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
-    public GameObject loadingScreen;
+    public GameObject profilePanel;
+    /*public GameObject loadingScreen;
     public Slider loadingSlider;
     public GameObject shopPanel;
     public GameObject removeAdsPanel;
     public GameObject notEnoughCoinsPanel;
-    public GameObject watchAdPanel;
+    public GameObject watchAdPanel;*/
 
     [Header("------Values------------")]
     public TextMeshProUGUI coinsText;
@@ -25,15 +26,16 @@ public class UIManager : MonoBehaviour
     [Header("------Buttons------------")]
     public Button playBtn;
     public Button settingsBtn;
-    public Button watchAdCoinsBtn;
+    public Button profileBtn;
+    /*public Button watchAdCoinsBtn;
     public RectTransform startCoinPosition; // For the coin icon in the UI
-    public List<Button> shopCoinsBtns = new List<Button>();
+    public List<Button> shopCoinsBtns = new List<Button>();*/
 
-    [Header("------Coin Drop Effect------------")]
+    /*[Header("------Coin Drop Effect------------")]
     public GameObject coinPrefab; // UI coin image prefab
     public RectTransform coinParent; // e.g. Canvas or dedicated CoinLayer
     public RectTransform spawnPoint; // Where coins start (e.g. coin counter)
-    public TextMeshProUGUI levelNumber;
+    public TextMeshProUGUI levelNumber;*/
 
 
     private float screenWidth;
@@ -57,6 +59,7 @@ public class UIManager : MonoBehaviour
     {
         playBtn.onClick.AddListener(Play);
         settingsBtn.onClick.AddListener(OnSettingPressed);
+        profileBtn.onClick.AddListener(OnProfilePressed);
         //watchAdCoinsBtn.onClick.AddListener(WatchAdForCoins);
     }
 
@@ -84,5 +87,8 @@ public class UIManager : MonoBehaviour
         });
     }
 
-
+    void OnProfilePressed()
+    {  
+        profilePanel.gameObject.SetActive(true);
+    }
 }

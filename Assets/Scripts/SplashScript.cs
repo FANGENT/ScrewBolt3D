@@ -8,9 +8,11 @@ public class SplashScript : MonoBehaviour
 {
     public float delayTime = 5f; // Time before loading next scene
     public string sceneToLoad = "MainMenu"; // Scene name to load
-    public Slider loadingSlider; // Reference to UI Slider
+    public Image loadingFillImage; // Reference to UI Image (must be "Filled" type)
 
     public TextMeshProUGUI percentageText;
+
+    public string privacyPolicyURL = "https://fangent.com"; // Replace with your actual URL
 
     void Start()
     {
@@ -27,14 +29,23 @@ public class SplashScript : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float progress = Mathf.Clamp01(elapsedTime / delayTime);
 
-            // Update slider and percentage text
-            loadingSlider.value = progress;
-            percentageText.text = Mathf.RoundToInt(progress * 100f) + "%";
+            // Update image fill and percentage text
+            if (loadingFillImage != null)
+                loadingFillImage.fillAmount = progress;
+
+            if (percentageText != null)
+                percentageText.text = Mathf.RoundToInt(progress * 100f) + "%";
 
             yield return null;
         }
 
         // Load the next scene
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+
+    public void OpenPrivacyPolicy()
+    {
+        Application.OpenURL(privacyPolicyURL);
     }
 }
