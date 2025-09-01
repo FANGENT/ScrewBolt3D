@@ -27,6 +27,11 @@ public class BottomNavController : MonoBehaviour
 
     public void ShowHome()
     {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
         homePanel.DOAnchorPos(Vector2.zero, 0.4f).SetEase(Ease.OutCubic);
         shopPanel.DOAnchorPos(new Vector2(-screenWidth, 0), 0.4f).SetEase(Ease.OutCubic);
 
@@ -43,6 +48,11 @@ public class BottomNavController : MonoBehaviour
 
     public void ShowShop()
     {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
         homePanel.DOAnchorPos(new Vector2(screenWidth, 0), 0.4f).SetEase(Ease.OutCubic);
         shopPanel.DOAnchorPos(Vector2.zero, 0.4f).SetEase(Ease.OutCubic);
 

@@ -13,10 +13,14 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
     public GameObject profilePanel;
+    public GameObject enterNamePanel;
+    public GameObject removeAdsPanel;
+    public GameObject levelGiftPanel;
+    public GameObject purchaseCancelPanel;
     /*public GameObject loadingScreen;
     public Slider loadingSlider;
     public GameObject shopPanel;
-    public GameObject removeAdsPanel;
+    
     public GameObject notEnoughCoinsPanel;
     public GameObject watchAdPanel;*/
 
@@ -27,6 +31,8 @@ public class UIManager : MonoBehaviour
     public Button playBtn;
     public Button settingsBtn;
     public Button profileBtn;
+    public Button removeAdsBtn;
+    public Button levelGiftBtn;
     /*public Button watchAdCoinsBtn;
     public RectTransform startCoinPosition; // For the coin icon in the UI
     public List<Button> shopCoinsBtns = new List<Button>();*/
@@ -53,6 +59,10 @@ public class UIManager : MonoBehaviour
         screenWidth = Screen.width;
         AddAllListeners();
 
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlayMusic("Main Menu BGM");
+        }
     }
 
     void AddAllListeners()
@@ -60,16 +70,27 @@ public class UIManager : MonoBehaviour
         playBtn.onClick.AddListener(Play);
         settingsBtn.onClick.AddListener(OnSettingPressed);
         profileBtn.onClick.AddListener(OnProfilePressed);
+        removeAdsBtn.onClick.AddListener(OnRemoveAds);
+        levelGiftBtn.onClick.AddListener(OnLevelGiftPressed);
         //watchAdCoinsBtn.onClick.AddListener(WatchAdForCoins);
     }
 
     void Play()
     {
+        if(SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
         SceneManager.LoadScene(2);
     }
 
     void OnSettingPressed()
     {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
         settingsPanel.gameObject.SetActive(true);
         // Reset starting position to right side
         settingsPanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(screenWidth, 0), 0f).SetEase(Ease.OutCubic);
@@ -80,6 +101,11 @@ public class UIManager : MonoBehaviour
 
     public void OnSettingsClosed()
     {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
         // Animate out of view to the right side
         settingsPanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(screenWidth, 0), 0.4f).SetEase(Ease.OutCubic).OnComplete(() =>
         {
@@ -88,7 +114,81 @@ public class UIManager : MonoBehaviour
     }
 
     void OnProfilePressed()
-    {  
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
+        if (PlayerPrefs.GetString("PlayerName") == "")
+        {
+            enterNamePanel.gameObject.SetActive(true);
+            return;
+        }
         profilePanel.gameObject.SetActive(true);
+    }
+
+    void OnRemoveAds()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
+        removeAdsPanel.gameObject.SetActive(true);
+        removeAdsPanel.transform.GetChild(0).localScale = Vector3.zero;
+        removeAdsPanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+    }
+    public void OnRemoveAdsClosed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        removeAdsPanel.transform.GetChild(0).DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            removeAdsPanel.gameObject.SetActive(false);
+        });
+    }
+
+    void OnLevelGiftPressed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
+        levelGiftPanel.gameObject.SetActive(true);
+        levelGiftPanel.transform.GetChild(0).localScale = Vector3.zero;
+        levelGiftPanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+    }
+    public void OnLevelGiftClosed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        levelGiftPanel.transform.GetChild(0).DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            levelGiftPanel.gameObject.SetActive(false);
+        });
+    }
+
+    public void ShowPurchaseCancel()
+    {
+        purchaseCancelPanel.gameObject.SetActive(true);
+        purchaseCancelPanel.transform.GetChild(0).localScale = Vector3.zero;
+        purchaseCancelPanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+    }
+    public void OnPurchaseCancelClosed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        purchaseCancelPanel.transform.GetChild(0).DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            purchaseCancelPanel.gameObject.SetActive(false);
+        });
     }
 }

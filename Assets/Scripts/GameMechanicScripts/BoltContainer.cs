@@ -1,12 +1,15 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class BoltContainer : MonoBehaviour
 {
     public int PlacementIndex = -1;
     public Color ContainerColor;
     public string ContainerColorName;
-    public SpriteRenderer ContainerRenderer;
+    //--A
+    //public SpriteRenderer ContainerRenderer;
+    public Image containerImage;
     public GameObject ColorSpace;
     public GameObject ContainerSpace;
     public Transform[] Placements;
@@ -15,7 +18,9 @@ public class BoltContainer : MonoBehaviour
 
     public void InitializeThisContainer(int placementIndex,Color newAssignedColor, string newAssignedColorName)
     {
-        ContainerRenderer.sprite = Resources.Load<Sprite>("Box/"+ newAssignedColorName);
+        //ContainerRenderer.sprite = Resources.Load<Sprite>("Box/"+ newAssignedColorName);
+        //--A
+        containerImage.sprite = Resources.Load<Sprite>("Box/"+ newAssignedColorName);
         PlacementIndex = placementIndex;
         TotalPlacements = ContainerSpace.transform.childCount;
         Placements = new Transform[TotalPlacements];

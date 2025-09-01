@@ -21,7 +21,7 @@ public class BoltContainerManager : MonoBehaviour
     {
         get
         {
-            return 6;
+            return 4;
             //return PlayerPrefs.GetInt("NumberOfExtraContainers", 6);
         }
         set
@@ -29,6 +29,7 @@ public class BoltContainerManager : MonoBehaviour
             PlayerPrefs.SetInt("NumberOfExtraContainers", value);
         }
     }
+    public RectTransform parentUIPanel;
     public GameObject PrefabReferencex2;
     public GameObject PrefabReferencex3;
     public GameObject EmptyContainerPrefab;
@@ -94,6 +95,7 @@ public class BoltContainerManager : MonoBehaviour
 
         for (int i = 0; i < 6; i++)
         {
+            //--A
             if (i < NumberOfExtraContainers)
             {
                 MakeNewExtraContainerWhereUnMatchedBoltsCanBePlaced(i);
@@ -114,6 +116,7 @@ public class BoltContainerManager : MonoBehaviour
             if (ModelController.Instance.modelAttributes.CheckIfAllBoltsAreRemoved())
             {
                 Debug.Log("Game Is Completed");
+                GameplayUiManager.Instance.OnLevelComplete();
                 return;
             }
             else
@@ -128,22 +131,22 @@ public class BoltContainerManager : MonoBehaviour
         int numberOfContainerHoles = -1;
         if(remainingBolts > 4)
         {
-            newContainer = Instantiate(PrefabReferencex3);
+            newContainer = Instantiate(PrefabReferencex3, parentUIPanel);
             numberOfContainerHoles = 3;
         }
         else if(remainingBolts == 4)
         {
-            newContainer = Instantiate(PrefabReferencex2);
+            newContainer = Instantiate(PrefabReferencex2, parentUIPanel);
             numberOfContainerHoles = 2;
         }
         else if (remainingBolts == 3)
         {
-            newContainer = Instantiate(PrefabReferencex3);
+            newContainer = Instantiate(PrefabReferencex3, parentUIPanel);
             numberOfContainerHoles = 3;
         }
         else if(remainingBolts == 2)
         {
-            newContainer = Instantiate(PrefabReferencex2);
+            newContainer = Instantiate(PrefabReferencex2, parentUIPanel);
             numberOfContainerHoles = 2;
         }
         else
@@ -166,21 +169,21 @@ public class BoltContainerManager : MonoBehaviour
 
     public void MakeNewEmptyContainerToBeUnlockedOnRewardedVideo(int PlacementIndex)
     {
-        GameObject newContainer = Instantiate(EmptyContainerPrefab);
+        GameObject newContainer = Instantiate(EmptyContainerPrefab, parentUIPanel);
         AvailableEmptyContainersList.Add(newContainer.GetComponent<EmptyContainer>());
         newContainer.GetComponent<EmptyContainer>().InitializeThisContainer(PlacementIndex);
     }
 
     public void MakeNewExtraContainerWhereUnMatchedBoltsCanBePlaced(int PlacementIndex)
     {
-        GameObject newContainer = Instantiate(ExtraContainerPrefab);
+        GameObject newContainer = Instantiate(ExtraContainerPrefab, parentUIPanel);
         AvailableExtraContainersList.Add(newContainer.GetComponent<ExtraContainer>());
         newContainer.GetComponent<ExtraContainer>().InitializeThisContainer(PlacementIndex);
     }
 
     public void MakeNewExtraLockedContainerWhereUnMatchedBoltsCanBePlaced(int PlacementIndex)
     {
-        GameObject newContainer = Instantiate(ExtraLockedContainerPrefab);
+        GameObject newContainer = Instantiate(ExtraLockedContainerPrefab, parentUIPanel);
         AvailableExtraLockedContainersList.Add(newContainer.GetComponent<ExtraLockedContainer>());
         newContainer.GetComponent<ExtraLockedContainer>().InitializeThisContainer(PlacementIndex);
     }
@@ -203,6 +206,12 @@ public class BoltContainerManager : MonoBehaviour
 
                     seq.Append(MatchingBoltFoundInExtraContainer.transform.DOMove(Placement.position, 0.2f)/*.OnComplete(()=> )*/);
                     seq.Join(MatchingBoltFoundInExtraContainer.transform.DORotate(new Vector3(0, 270, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+
+                    seq.onComplete = () =>
+                    {
+                        //--A Bolt is placed in the container now, so reset its scale to normal
+                        MatchingBoltFoundInExtraContainer.transform.localScale = Vector3.one * 2f;
+                    };
 
 
                     seq.Play();
@@ -253,5 +262,28 @@ public class BoltContainerManager : MonoBehaviour
         }
         return null;
     }
+
+    public void OnDrillBtnPressed()
+    {
+        if (AvailableExtraLockedContainersList.Count == 0)
+        {
+            Debug.Log("No More Extra Containers To Unlock");
+            return;
+        }
+
+        // Always unlock the FIRST locked container in the list
+        ExtraLockedContainer lockedContainer = AvailableExtraLockedContainersList[0];
+        int placementIndex = lockedContainer.PlacementIndex;
+
+        // Remove it from locked list
+        AvailableExtraLockedContainersList.RemoveAt(0);
+        Destroy(lockedContainer.gameObject);
+
+        // Replace with an unlocked extra container
+        MakeNewExtraContainerWhereUnMatchedBoltsCanBePlaced(placementIndex);
+
+        Debug.Log("Unlocked one extra container at index: " + placementIndex);
+    }
+
 }
 

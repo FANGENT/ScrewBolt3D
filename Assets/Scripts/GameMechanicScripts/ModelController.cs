@@ -1,10 +1,19 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class ModelController : MonoBehaviour
 {
     public static ModelController Instance;
     public Transform Model;
+    public Camera mainCamera; // Assign your main camera in inspector
+
+    [Header("Zoom Settings")]
+    public Slider zoomSlider;
+    public float minZoom = 20f;  // Closest zoom
+    public float maxZoom = 60f;  // Farthest zoom
+
+
     public ModelAttributes modelAttributes;
     //public Transform Target;
     public float rotationSpeed = 0.2f; // Adjust as needed
@@ -18,6 +27,16 @@ public class ModelController : MonoBehaviour
 
     public void Start()
     {
+        if (mainCamera == null) mainCamera = Camera.main;
+
+        // Optional: hook the slider if not set manually
+        if (zoomSlider != null)
+        {
+            zoomSlider.minValue = 0f;
+            zoomSlider.maxValue = 1f;
+            zoomSlider.value = 0f; // start at middle zoom
+        }
+
         InitializeTheGame();
     }
 
@@ -29,6 +48,18 @@ public class ModelController : MonoBehaviour
 
     private void Update()
     {
+        if (mainCamera == null || zoomSlider == null) return;
+
+        // Normalize slider value (0–1)
+        float normalizedValue = zoomSlider.value;
+
+        // Map slider directly to zoom range
+        float targetFOV = Mathf.Lerp(maxZoom, minZoom, normalizedValue);
+
+        // Instantly set FOV (no smoothness)
+        mainCamera.fieldOfView = targetFOV;
+
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -138,9 +169,26 @@ public class ModelController : MonoBehaviour
 
         seq.Append(Bolt.transform.DOMove(Placement.position, 0.2f));
         seq.Join(Bolt.transform.DORotate(new Vector3(0, 270, 0), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
-
+       
+        seq.onComplete = () =>
+        {
+            if(Bolt.GetComponentInParent<ExtraContainer>())
+            {
+                Bolt.transform.localScale = Vector3.one * 500f;
+            }
+            else
+            {
+                Bolt.transform.localScale = Vector3.one * 2;
+            }
+            
+        };
         //seq.Play();
         //lastBolt = Bolt;
+
+        if(SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("screw");
+        }
 
     }
 
