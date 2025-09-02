@@ -174,6 +174,18 @@ public class UIManager : MonoBehaviour
         });
     }
 
+    #region Shop
+
+    public void PurchaseShopItem(string itemID)
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        // Implement purchase logic here IAP
+
+    }
+
     public void ShowPurchaseCancel()
     {
         purchaseCancelPanel.gameObject.SetActive(true);
@@ -191,4 +203,6 @@ public class UIManager : MonoBehaviour
             purchaseCancelPanel.gameObject.SetActive(false);
         });
     }
+
+    #endregion
 }

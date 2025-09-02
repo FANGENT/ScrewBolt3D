@@ -7,8 +7,6 @@ public class GameplayUiManager : MonoBehaviour
 {
     public static GameplayUiManager Instance;
 
-    [Header("References")]
-    public GameObject model;
 
     [Header("UI Panels")]
     public GameObject gamePlayPanel;
@@ -54,7 +52,6 @@ public class GameplayUiManager : MonoBehaviour
     public void OnPause()
     {
         pausePanel.SetActive(true);
-        model.SetActive(false);
         pausePanel.transform.GetChild(0).localScale = Vector3.zero;
         pausePanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).OnComplete(() => Time.timeScale = 0);
     }
@@ -62,7 +59,6 @@ public class GameplayUiManager : MonoBehaviour
     public void OnResume()
     {
         Time.timeScale = 1f; // Resume time scale
-        model.SetActive(true);
         pausePanel.transform.GetChild(0).DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
         {
             pausePanel.SetActive(false);
@@ -75,7 +71,6 @@ public class GameplayUiManager : MonoBehaviour
         {
             SoundManager.Instance.PlaySFX("Level Complete");
         }
-        model.SetActive(false);
         levelCompletePanel.SetActive(true);
         levelCompletePanel.transform.GetChild(0).localScale = Vector3.zero;
         levelCompletePanel.transform.GetChild(0).DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);

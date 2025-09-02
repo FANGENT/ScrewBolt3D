@@ -180,7 +180,10 @@ public class ModelController : MonoBehaviour
             {
                 Bolt.transform.localScale = Vector3.one * 2;
             }
-            
+
+            Bolt.gameObject.layer = LayerMask.NameToLayer("UI");
+            Bolt.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("UI");
+
         };
         //seq.Play();
         //lastBolt = Bolt;

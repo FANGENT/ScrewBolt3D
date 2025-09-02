@@ -1251,8 +1251,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3271,8 +3271,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4835,8 +4835,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9682,8 +9682,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11848,14 +11848,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: BeginnerBundle
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &931434077
@@ -12210,14 +12210,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: remove_ads
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &972626805
@@ -15468,14 +15468,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: FullPack
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1198797435
@@ -17108,8 +17108,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18288,14 +18288,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MasterBundle
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1378935209
@@ -19283,8 +19283,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -20798,8 +20798,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -23540,8 +23540,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1969154954}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ShowPurchaseCancel
-        m_Mode: 1
+        m_MethodName: PurchaseShopItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

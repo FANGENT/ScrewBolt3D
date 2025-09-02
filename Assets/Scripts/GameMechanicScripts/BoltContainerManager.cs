@@ -211,6 +211,7 @@ public class BoltContainerManager : MonoBehaviour
                     {
                         //--A Bolt is placed in the container now, so reset its scale to normal
                         MatchingBoltFoundInExtraContainer.transform.localScale = Vector3.one * 2f;
+                        MatchingBoltFoundInExtraContainer.gameObject.layer = LayerMask.NameToLayer("UI");
                     };
 
 
