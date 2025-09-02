@@ -43,21 +43,34 @@ public class BoltContainer : MonoBehaviour
 
     public Transform PlaceInThisContainerIfPossible(Transform UnscrewedBolt)
     {
-        if(UnscrewedBolt.name != ContainerColorName)
+        if (UnscrewedBolt.name != ContainerColorName)
         {
             return null;
         }
-        for(int i = 0; i < FilledBolts.Length; i++)
+
+        for (int i = 0; i < FilledBolts.Length; i++)
         {
-            if(FilledBolts[i] == null)
+            if (FilledBolts[i] == null)
             {
                 FilledBolts[i] = UnscrewedBolt;
+
+                //Decrement here, only when a bolt is actually placed
+                ModelController.Instance.modelAttributes.UpdatingRemainingBolts(ContainerColorName, 1);
+
+                //Optional: check level completion immediately
+                if (ModelController.Instance.modelAttributes.CheckIfAllBoltsAreRemoved())
+                {
+                    Debug.Log("Game Is Completed");
+                    GameplayUiManager.Instance.OnLevelComplete();
+                }
+
                 CheckIfThisContainerIsFilledCompletelyWithBolts();
                 return Placements[i];
             }
         }
         return null;
     }
+
 
     private void CheckIfThisContainerIsFilledCompletelyWithBolts()
     {

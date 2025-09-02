@@ -7,15 +7,15 @@ public class ModelAttributes : MonoBehaviour
 {
     public Transform ModelBoltsContainer;
     public Transform ModelPartsContainer;
-    [HideInInspector]
+    /*[HideInInspector]*/
     public List<string> AllExistingColorNames;
-    [HideInInspector]
+    /*[HideInInspector]*/
     public List<Color> AllExistingColor;
-    [HideInInspector]
+    /*[HideInInspector]*/
     public List<int> AllExistingColorCount;
-    [HideInInspector]
+    /*[HideInInspector]*/
     public List<int> RemainingExistingColorCount;
-    [HideInInspector]
+    /*[HideInInspector]*/
     public int TotalNumberOfColors;
 
     private BlockedMeshedController[] ModelParts;

@@ -79,6 +79,12 @@ public class ModelController : MonoBehaviour
                 // Vertical swipe -> X-axis rotation
                 float xRotation = delta.y * rotationSpeed;
 
+                //--A fix rotation issue when reload level
+                if (Model == null)
+                {
+                    Model = LevelManager.Instance.currentModel.transform;
+                }
+
                 // Apply rotation to the object
                 Model.Rotate(xRotation, yRotation, 0f, Space.World);
                 //if (InputHandler.Instance.inputStatus == InputStatus.Swipe)

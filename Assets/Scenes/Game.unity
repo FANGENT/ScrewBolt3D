@@ -9012,6 +9012,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417028961}
   m_CullTransparentMesh: 1
+--- !u!1 &1418218711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1418218713}
+  - component: {fileID: 1418218712}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1418218712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418218711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6967501b92d674ebf44b811a373981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  models:
+  - {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b, type: 3}
+  - {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b, type: 3}
+  - {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b, type: 3}
+  - {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b, type: 3}
+  - {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b, type: 3}
+  levelParent: {fileID: 1418218713}
+  currentLevel: 0
+  currentModel: {fileID: 0}
+--- !u!4 &1418218713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418218711}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1470927162
 GameObject:
   m_ObjectHideFlags: 0
@@ -12536,22 +12589,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2044577979}
   - component: {fileID: 2044577978}
-  - component: {fileID: 2044577977}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2044577977
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044577976}
-  m_Enabled: 1
 --- !u!20 &2044577978
 Camera:
   m_ObjectHideFlags: 0
@@ -13262,3 +13306,4 @@ SceneRoots:
   - {fileID: 1652399499}
   - {fileID: 2031547448}
   - {fileID: 2044577979}
+  - {fileID: 1418218713}

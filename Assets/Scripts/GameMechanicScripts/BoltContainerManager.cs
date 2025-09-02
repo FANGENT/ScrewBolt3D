@@ -109,7 +109,8 @@ public class BoltContainerManager : MonoBehaviour
 
     public void MakeNewContainerWhereUnscrewedBoltsCanBePlaced(int PlacementIndex)
     {
-        int selectedIndex = Random.Range(0, ModelController.Instance.modelAttributes.TotalNumberOfColors);
+        //--A
+        /*int selectedIndex = Random.Range(0, ModelController.Instance.modelAttributes.TotalNumberOfColors);
         int remainingBolts = ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(selectedIndex);
         if(remainingBolts == 0)
         {
@@ -124,9 +125,31 @@ public class BoltContainerManager : MonoBehaviour
                 selectedIndex = ModelController.Instance.modelAttributes.GetNotZeroBoltIndex();
                 remainingBolts = ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(selectedIndex);
             }
+        }*/
+
+        int selectedIndex = -1;
+        List<int> availableIndexes = new List<int>();
+
+        for (int i = 0; i < ModelController.Instance.modelAttributes.TotalNumberOfColors; i++)
+        {
+            if (ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(i) > 0)
+            {
+                availableIndexes.Add(i);
+            }
         }
 
-        
+        if (availableIndexes.Count == 0)
+        {
+            Debug.Log("Game Is Completed");
+            GameplayUiManager.Instance.OnLevelComplete();
+            return;
+        }
+
+        // Pick random valid color
+        selectedIndex = availableIndexes[Random.Range(0, availableIndexes.Count)];
+        int remainingBolts = ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(selectedIndex);
+
+
         GameObject newContainer;
         int numberOfContainerHoles = -1;
         if(remainingBolts > 4)
@@ -154,12 +177,13 @@ public class BoltContainerManager : MonoBehaviour
             newContainer = null;
             return;
         }
-
-        ModelController.Instance.modelAttributes.UpdatingRemainingBolts
+        //--A
+        /*ModelController.Instance.modelAttributes.UpdatingRemainingBolts
             (
             ModelController.Instance.modelAttributes.GetColorNameByIndex(selectedIndex),
             numberOfContainerHoles
-            );
+            );*/
+
         newContainer.GetComponent<BoltContainer>().InitializeThisContainer(
             PlacementIndex,
             ModelController.Instance.modelAttributes.GetColorByIndex(selectedIndex),
