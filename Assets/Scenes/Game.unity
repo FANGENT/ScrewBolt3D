@@ -2088,7 +2088,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 322543792}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1221616616}
+        m_TargetAssemblyTypeName: GameplayUiManager, Assembly-CSharp
+        m_MethodName: TestCoinBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &322543792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6922,6 +6934,10 @@ MonoBehaviour:
   levelCompletePanel: {fileID: 1373396552}
   levelProgressImage: {fileID: 2107901901}
   levelProgressText: {fileID: 1350306772}
+  starPrefab: {fileID: 1510486659686571977, guid: 61fa5968758e2f74d9547eed0d036a10,
+    type: 3}
+  starsTarget: {fileID: 2107901900}
+  spawnPoint: {fileID: 0}
 --- !u!4 &1221616617
 Transform:
   m_ObjectHideFlags: 0

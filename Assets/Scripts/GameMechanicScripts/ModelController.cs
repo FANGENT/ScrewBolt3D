@@ -186,7 +186,8 @@ public class ModelController : MonoBehaviour
         {
             if(Bolt.GetComponentInParent<ExtraContainer>())
             {
-                Bolt.transform.localScale = Vector3.one * 500f;
+                //--A change bolt scale if placed in extra container
+                Bolt.transform.localScale = Vector3.one * 300f;
             }
             else
             {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 public enum RewardType
 {
-    cash, gold, grenade
+    cash, gold, grenade, coins, 
 }
 public class AdsManager : MonoBehaviour
 {

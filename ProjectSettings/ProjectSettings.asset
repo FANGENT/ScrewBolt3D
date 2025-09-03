@@ -841,7 +841,7 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: MODULE_POWERUPS;MODULE_TMP;MODULE_MONETIZATION;MODULE_HAPTIC;MODULE_INPUT_SYSTEM;DOTWEEN
+    Android: MODULE_POWERUPS;MODULE_TMP;MODULE_MONETIZATION;MODULE_HAPTIC;MODULE_INPUT_SYSTEM;DOTWEEN;gameanalytics_admob_enabled
     EmbeddedLinux: DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
@@ -857,7 +857,7 @@ PlayerSettings:
     WebGL: MODULE_POWERUPS;MODULE_TMP;MODULE_MONETIZATION;MODULE_HAPTIC;DOTWEEN
     Windows Store Apps: DOTWEEN
     XboxOne: DOTWEEN
-    iPhone: MODULE_TMP;MODULE_MONETIZATION;MODULE_POWERUPS;MODULE_HAPTIC;DOTWEEN
+    iPhone: MODULE_TMP;MODULE_MONETIZATION;MODULE_POWERUPS;MODULE_HAPTIC;DOTWEEN;gameanalytics_admob_enabled
     tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture:
