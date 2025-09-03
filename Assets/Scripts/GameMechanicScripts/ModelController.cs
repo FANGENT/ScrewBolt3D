@@ -42,7 +42,8 @@ public class ModelController : MonoBehaviour
 
     public void InitializeTheGame()
     {
-        modelAttributes = Model.GetComponent<ModelAttributes>();
+        //modelAttributes = Model.GetComponent<ModelAttributes>();
+        modelAttributes = LevelManager.Instance.currentModel.GetComponent<ModelAttributes>();
         BoltContainerManager.Instance.InitializeAllContainers();
     }
 
@@ -116,6 +117,11 @@ public class ModelController : MonoBehaviour
 
             float yRotation = -delta.x * rotationSpeed * 0.5f;
             float xRotation = delta.y * rotationSpeed * 0.5f;
+
+            if (Model == null)
+            {
+                Model = LevelManager.Instance.currentModel.transform;
+            }
 
             Model.Rotate(xRotation, yRotation, 0f, Space.World);
             lastMousePosition = Input.mousePosition;

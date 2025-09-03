@@ -25,8 +25,12 @@ public class LevelPreviewUI : MonoBehaviour
         parent = (RectTransform)transform;
     }
 
+    
+
     private void Start()
     {
+       levelNumber = LevelManager.Instance.currentLevel;
+        completedSteps = levelNumber - 1;
         Build();
     }
 

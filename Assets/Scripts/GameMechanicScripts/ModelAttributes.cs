@@ -168,5 +168,26 @@ public class ModelAttributes : MonoBehaviour
             }
         }
     }
+
+
+    //--A
+    public void CheckRemainingBoltsCounts()
+    {
+        int total = 0;
+        int remainingTotal = 0;
+        for (int i = 0; i < RemainingExistingColorCount.Count; i++)
+        {
+            //Debug.Log("Color Name: " + AllExistingColorNames[i] + " Remaining Count: " + RemainingExistingColorCount[i]);
+            remainingTotal += RemainingExistingColorCount[i];
+        }
+
+        for(int i = 0; i < AllExistingColorCount.Count; i++)
+        {
+            total += AllExistingColorCount[i];
+        }
+        float progressInPercentage = ((total - remainingTotal) / (total * 1.0f)) * 100.0f;
+        GameplayUiManager.Instance.levelProgressText.text = progressInPercentage.ToString("0") + "%";
+        GameplayUiManager.Instance.levelProgressImage.fillAmount = (total - remainingTotal) / (total * 1.0f);
+    }
 }
 

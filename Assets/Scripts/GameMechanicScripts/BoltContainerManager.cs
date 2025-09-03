@@ -109,23 +109,6 @@ public class BoltContainerManager : MonoBehaviour
 
     public void MakeNewContainerWhereUnscrewedBoltsCanBePlaced(int PlacementIndex)
     {
-        //--A
-        /*int selectedIndex = Random.Range(0, ModelController.Instance.modelAttributes.TotalNumberOfColors);
-        int remainingBolts = ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(selectedIndex);
-        if(remainingBolts == 0)
-        {
-            if (ModelController.Instance.modelAttributes.CheckIfAllBoltsAreRemoved())
-            {
-                Debug.Log("Game Is Completed");
-                GameplayUiManager.Instance.OnLevelComplete();
-                return;
-            }
-            else
-            {
-                selectedIndex = ModelController.Instance.modelAttributes.GetNotZeroBoltIndex();
-                remainingBolts = ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(selectedIndex);
-            }
-        }*/
 
         int selectedIndex = -1;
         List<int> availableIndexes = new List<int>();
@@ -136,13 +119,6 @@ public class BoltContainerManager : MonoBehaviour
             {
                 availableIndexes.Add(i);
             }
-        }
-
-        if (availableIndexes.Count == 0)
-        {
-            Debug.Log("Game Is Completed");
-            GameplayUiManager.Instance.OnLevelComplete();
-            return;
         }
 
         // Pick random valid color
@@ -177,12 +153,6 @@ public class BoltContainerManager : MonoBehaviour
             newContainer = null;
             return;
         }
-        //--A
-        /*ModelController.Instance.modelAttributes.UpdatingRemainingBolts
-            (
-            ModelController.Instance.modelAttributes.GetColorNameByIndex(selectedIndex),
-            numberOfContainerHoles
-            );*/
 
         newContainer.GetComponent<BoltContainer>().InitializeThisContainer(
             PlacementIndex,

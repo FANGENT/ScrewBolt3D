@@ -16,6 +16,11 @@ public class BottomNavController : MonoBehaviour
     void Start()
     {
         screenWidth = Screen.width;
+        Debug.Log("Screen Width: " + screenWidth);
+        if(Screen.width < 1080)
+        {
+            screenWidth = 1080; // Set a minimum width for smaller screens
+        }
         // Ensure starting positions
         homePanel.anchoredPosition = Vector2.zero;
         shopPanel.anchoredPosition = new Vector2(-screenWidth, 0);

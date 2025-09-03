@@ -6920,6 +6920,8 @@ MonoBehaviour:
   pausePanel: {fileID: 1470927162}
   settingPanel: {fileID: 1652694961}
   levelCompletePanel: {fileID: 1373396552}
+  levelProgressImage: {fileID: 2107901901}
+  levelProgressText: {fileID: 1350306772}
 --- !u!4 &1221616617
 Transform:
   m_ObjectHideFlags: 0
@@ -8026,7 +8028,7 @@ GameObject:
   - component: {fileID: 1350306773}
   - component: {fileID: 1350306772}
   m_Layer: 5
-  m_Name: Percentage Txt
+  m_Name: Level progress text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9028,7 +9030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1418218712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9048,7 +9050,7 @@ MonoBehaviour:
   - {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b, type: 3}
   - {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b, type: 3}
   levelParent: {fileID: 1418218713}
-  currentLevel: 0
+  currentLevel: 1
   currentModel: {fileID: 0}
 --- !u!4 &1418218713
 Transform:
@@ -9770,7 +9772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2dedfa379e5204cb7198e4965c1400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model: {fileID: 2068420998}
+  Model: {fileID: 0}
   mainCamera: {fileID: 956244640}
   zoomSlider: {fileID: 962069158}
   minZoom: 20
@@ -10296,8 +10298,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f5f9713c19d48094494ff9d92c5deded, type: 3}
   - {fileID: 21300000, guid: d5b65efd9f3cb194790e07dd4e5dcc41, type: 3}
   - {fileID: 21300000, guid: 9aff059935b98e341954289615122a5d, type: 3}
-  completedSteps: 3
-  levelNumber: 4
+  completedSteps: 2
+  levelNumber: 3
 --- !u!1 &1691474090
 GameObject:
   m_ObjectHideFlags: 0
@@ -12662,12 +12664,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -0.06, y: 0, z: 0}
---- !u!4 &2068420998 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1878452768675440384, guid: 8603182ac980bbb47ada5ef5958f453b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2077344122555954747}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2107901899
 GameObject:
   m_ObjectHideFlags: 0
@@ -12730,7 +12726,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -13029,6 +13025,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 9048596430835621033, guid: 8603182ac980bbb47ada5ef5958f453b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

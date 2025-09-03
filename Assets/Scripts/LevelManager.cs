@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void LoadCurrentLevel()
     {
-        currentLevel = PlayerPrefs.GetInt(LEVEL_KEY, 0);
+        currentLevel = PlayerPrefs.GetInt(LEVEL_KEY, 1);
 
         if (currentLevel >= models.Count)
             currentLevel = 0; // Reset if out of range

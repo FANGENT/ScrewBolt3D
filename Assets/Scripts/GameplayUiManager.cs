@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameplayUiManager : MonoBehaviour
 {
@@ -17,8 +18,9 @@ public class GameplayUiManager : MonoBehaviour
     public GameObject levelFailPanel;
     public GameObject gameOverPanel;*/
 
-    /*[Header("Values")]
-*/
+    [Header("Values")]
+    public Image levelProgressImage;
+    public TextMeshProUGUI levelProgressText;
 
     private void Awake()
     {
