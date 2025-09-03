@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject removeAdsPanel;
     public GameObject levelGiftPanel;
     public GameObject purchaseCancelPanel;
+    public GameObject aboutPanel;
     /*public GameObject loadingScreen;
     public Slider loadingSlider;
     public GameObject shopPanel;
@@ -65,6 +66,9 @@ public class UIManager : MonoBehaviour
         {
             SoundManager.Instance.PlayMusic("Main Menu BGM");
         }
+
+        DataManager.onCoinsUpdated += CoinsUpdateCallback;
+        CoinsUpdateCallback(); // Initialize coin display
     }
 
     void AddAllListeners()
@@ -179,6 +183,33 @@ public class UIManager : MonoBehaviour
         TestCoinBuy();
     }
 
+    public void OnAboutPressed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        aboutPanel.SetActive(true);
+        // Reset starting position to right side
+        aboutPanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(screenWidth, 0), 0f).SetEase(Ease.OutCubic);
+
+        // Animate into view
+        aboutPanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.4f).SetEase(Ease.OutCubic);
+    }
+
+    public void OnAboutClosed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        // Animate out of view to the right side
+        aboutPanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(screenWidth, 0), 0.4f).SetEase(Ease.OutCubic).OnComplete(() =>
+        {
+            aboutPanel.SetActive(false);
+        });
+    }
+
     #region Shop
 
     public void PurchaseShopItem(string itemID)
@@ -215,7 +246,7 @@ public class UIManager : MonoBehaviour
 
     private int displayedCoins = 0; // Keep track of the last shown value
 
-    /*private void CoinsUpdateCallback()
+    private void CoinsUpdateCallback()
     {
         int targetCoins = DataManager.instance.coins;
 
@@ -234,7 +265,7 @@ public class UIManager : MonoBehaviour
             ) // 0.5 seconds animation duration
             .SetEase(Ease.OutQuad)
             .SetId("CoinsTween");
-    }*/
+    }
 
     public void PlayCoinDrop(RectTransform targetButton, int coinCount = 10, float duration = 0.5f)
     {
@@ -336,7 +367,7 @@ public class UIManager : MonoBehaviour
 
     public void TestCoinBuy()
     {
-        //DataManager.instance.AddCoins(1000);
+        DataManager.instance.AddCoins(50);
         PlayCoinUp(levelGiftPanel.GetComponent<RectTransform>());
     }
 

@@ -29,10 +29,13 @@ public class ToggleButtonHandler : MonoBehaviour
         PlayerPrefs.Save();
 
         //--A uncomment this if you want to play/stop music on toggle
-        /*if(key=="Music")
+        if (key == "Music")
         {
-            SoundManager.Instance.PlayMusic("Menu Music");
-        }*/
+            if(SoundManager.Instance)
+            {
+                SoundManager.Instance.PlayMusic("Main Menu BGM");
+            }
+        }
 
         if (toggleType == ToggleType.Vibration && newState)
             Handheld.Vibrate();

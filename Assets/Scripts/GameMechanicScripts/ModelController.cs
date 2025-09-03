@@ -159,34 +159,47 @@ public class ModelController : MonoBehaviour
             Debug.LogError("BoltIsLocked");
             return;
         }
+
         Transform Placement = GetSpaceForNewlyUnscrewedBolt(Bolt.transform);
 
-        if(Placement == null)
+        if (Placement == null)
         {
             Debug.LogError("GameIsOver");
             return;
         }
 
         Bolt.GetComponent<Collider>().enabled = false;
-        Bolt.transform.parent = Placement;
+        Bolt.transform.parent = null; // free it first
         CheckIfAnyPartOfModelCanFall();
 
         Sequence seq = DOTween.Sequence();
-        seq.Join(Bolt.transform.GetChild(0).DOLocalRotate(new Vector3(1440, 0, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
-        seq.Join(Bolt.transform.DOMove(Bolt.transform.position - Bolt.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear));
 
+        // 1? POP UP (0.2s)
+        seq.Append(Bolt.transform.DOMove(Bolt.transform.position + Vector3.up * 0.3f, 0.2f)
+            .SetEase(Ease.OutBack));
 
-        seq.Append(Bolt.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.2f));
-        seq.Join(Bolt.transform.DORotate(new Vector3(15, -65, -25), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+        // 2? ROTATE while hovering (0.3s)
+        seq.Join(Bolt.transform.GetChild(0).DOLocalRotate(new Vector3(1080, 0, 0), 0.3f, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear));
 
-        seq.Append(Bolt.transform.DOMove(Placement.position, 0.2f));
-        seq.Join(Bolt.transform.DORotate(new Vector3(0, 270, 0), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
-       
-        seq.onComplete = () =>
+        // 3? MOVE toward placement (0.5s)
+        Vector3 midPoint = (Bolt.transform.position + Placement.position) / 2f + Vector3.up * 0.2f;
+        seq.Append(Bolt.transform.DOPath(
+            new Vector3[] { Bolt.transform.position, midPoint, Placement.position },
+            0.5f,
+            PathType.CatmullRom
+        ).SetEase(Ease.InOutSine));
+
+        // Rotate while flying
+        seq.Join(Bolt.transform.DORotate(new Vector3(0, 270, 0), 0.5f, RotateMode.Fast));
+
+        // On Complete
+        seq.OnComplete(() =>
         {
-            if(Bolt.GetComponentInParent<ExtraContainer>())
+            Bolt.transform.SetParent(Placement);
+
+            if (Bolt.GetComponentInParent<ExtraContainer>())
             {
-                //--A change bolt scale if placed in extra container
                 Bolt.transform.localScale = Vector3.one * 300f;
             }
             else
@@ -196,17 +209,15 @@ public class ModelController : MonoBehaviour
 
             Bolt.gameObject.layer = LayerMask.NameToLayer("UI");
             Bolt.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("UI");
+        });
 
-        };
-        //seq.Play();
-        //lastBolt = Bolt;
-
-        if(SoundManager.Instance)
+        if (SoundManager.Instance)
         {
             SoundManager.Instance.PlaySFX("screw");
         }
-
     }
+
+
 
     private void CheckIfAnyPartOfModelCanFall()
     {
