@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d653c98c5ccd8b4f8e3f0d4a3719267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogBox: {fileID: 114147195996588364, guid: 241bb7d737404454cb010a5c344a34b9, type: 3}
+  dialogBox: {fileID: 114147195996588364, guid: 241bb7d737404454cb010a5c344a34b9,
+    type: 3}
   canvas: {fileID: 0}
-  AppId: ca-app-pub-8539895103160948~6288709851
-  bannerId: ca-app-pub-8539895103160948/9220589986
-  interstitialId: ca-app-pub-8539895103160948/5448865932
-  rewardedVideoId: ca-app-pub-8539895103160948/4805071943
-  appOpenId: ca-app-pub-8539895103160948/4714368763
-  rewardedInterstitial: ca-app-pub-8539895103160948/7498021180
+  AppId: ca-app-pub-3940256099942544~3347511713
+  bannerId: ca-app-pub-3940256099942544/6300978111
+  interstitialId: ca-app-pub-3940256099942544/1033173712
+  rewardedVideoId: ca-app-pub-3940256099942544/5224354917
+  rewardedInterstitial: ca-app-pub-3940256099942544/5354046379
   testMode: 0
 --- !u!114 &7694574763629532734
 MonoBehaviour:
@@ -67,4 +67,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skus:
+  - fullpack
   - remove_ads
+  - beginner_bundle
+  - master_bundle
+  - mega_bundle
+  - ultra_bundle
+  - giant_bundle
+  - coins_600
+  - coins_1500
+  - coins_3000
+  - coins_6000
+  - coins_15000

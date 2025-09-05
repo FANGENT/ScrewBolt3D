@@ -19,12 +19,10 @@ public class UIManager : MonoBehaviour
     public GameObject levelGiftPanel;
     public GameObject purchaseCancelPanel;
     public GameObject aboutPanel;
+    public GameObject purchaseSuccessPanel;
     /*public GameObject loadingScreen;
     public Slider loadingSlider;
-    public GameObject shopPanel;
-    
-    public GameObject notEnoughCoinsPanel;
-    public GameObject watchAdPanel;*/
+    public GameObject notEnoughCoinsPanel;*/
 
     [Header("------Values------------")]
     public TextMeshProUGUI coinsText;
@@ -36,15 +34,19 @@ public class UIManager : MonoBehaviour
     public Button profileBtn;
     public Button removeAdsBtn;
     public Button levelGiftBtn;
-    /*public Button watchAdCoinsBtn;
-    public RectTransform startCoinPosition; // For the coin icon in the UI
-    public List<Button> shopCoinsBtns = new List<Button>();*/
+    public Button purchaseClaimBtn;
+    
 
     [Header("------Coin Drop Effect------------")]
     public GameObject coinPrefab; // UI coin image prefab
     public RectTransform coinTarget; // e.g. Canvas or dedicated CoinLayer
     public RectTransform spawnPoint; // Where coins start (e.g. coin counter)
-    
+
+
+    [Header("Shop Bundles To Show For Purchase Success")]
+    public bool showShopBundleOnPurchaseSuccess = true;
+    public List<GameObject> shopBundlesToShow = new List<GameObject>();
+
 
 
     private float screenWidth;
@@ -80,6 +82,7 @@ public class UIManager : MonoBehaviour
         profileBtn.onClick.AddListener(OnProfilePressed);
         removeAdsBtn.onClick.AddListener(OnRemoveAds);
         levelGiftBtn.onClick.AddListener(OnLevelGiftPressed);
+        purchaseClaimBtn.onClick.AddListener(OnPurchaseClaimPressed);
         //watchAdCoinsBtn.onClick.AddListener(WatchAdForCoins);
     }
 
@@ -225,6 +228,25 @@ public class UIManager : MonoBehaviour
         purchaseCancelPanel.transform.GetChild(0).localScale = Vector3.zero;
         purchaseCancelPanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
     }
+    public void ShowPurchaseSuccess(int bundleIdx)
+    {
+        purchaseSuccessPanel.gameObject.SetActive(true);
+        purchaseSuccessPanel.transform.GetChild(0).localScale = Vector3.zero;
+        purchaseSuccessPanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+
+        foreach(GameObject bundle in shopBundlesToShow)
+        {
+            bundle.SetActive(false);
+        }
+
+        if (bundleIdx >= 0 && bundleIdx < shopBundlesToShow.Count)
+        {
+            for (int i = 0; i < shopBundlesToShow.Count; i++)
+            {
+                shopBundlesToShow[i].SetActive(i == bundleIdx);
+            }
+        }
+    }
     public void OnPurchaseCancelClosed()
     {
         if (SoundManager.Instance)
@@ -235,6 +257,23 @@ public class UIManager : MonoBehaviour
         {
             purchaseCancelPanel.gameObject.SetActive(false);
         });
+    }
+
+    public void OnPurchaseClaimPressed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        purchaseSuccessPanel.transform.GetChild(0).DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            purchaseSuccessPanel.gameObject.SetActive(false);
+        });
+        /*if (showShopBundleOnPurchaseSuccess && shopBundlesToShow.Count > 0)
+        {
+            int randomIndex = Random.Range(0, shopBundlesToShow.Count);
+            shopBundlesToShow[randomIndex].SetActive(true);
+        }*/
     }
 
     #endregion
@@ -385,37 +424,75 @@ public class UIManager : MonoBehaviour
             case "fullpack":
                 {
                     DataManager.instance.AddCoins(1500);
-                    //PlayCoinUp(shopCoinsBtns[0].GetComponent<RectTransform>());
+                    PlayCoinUp(coinsText.GetComponent<RectTransform>());
+                    ShowPurchaseSuccess(0);
                     break;
                 }
-            case "coinspack2":
+            case "remove_ads":
                 {
+                    ShowPurchaseSuccess(1);
                     //DataManager.instance.AddCoins(2000);
                     //PlayCoinUp(shopCoinsBtns[0].GetComponent<RectTransform>());
                     break;
                 }
-            case "coinspack3":
+            case "beginner_bundle":
                 {
-                    //DataManager.instance.AddCoins(3000);
-                    //PlayCoinUp(shopCoinsBtns[0].GetComponent<RectTransform>());
+                    ShowPurchaseSuccess(2);
+                    DataManager.instance.AddCoins(750);
                     break;
                 }
-            case "coinspack4":
+            case "master_bundle":
                 {
-                    //DataManager.instance.AddCoins(4000);
-                    //PlayCoinUp(shopCoinsBtns[0].GetComponent<RectTransform>());
+                    ShowPurchaseSuccess(3);
+                    DataManager.instance.AddCoins(800);
                     break;
                 }
-            case "coinspack5":
+            case "mega_bundle":
                 {
-                    //DataManager.instance.AddCoins(5000);
-                    //PlayCoinUp(shopCoinsBtns[0].GetComponent<RectTransform>());
+                    ShowPurchaseSuccess(4);
+                    DataManager.instance.AddCoins(2000);
                     break;
                 }
-            case "coinspack6":
+            case "ultra_bundle":
                 {
-                    //DataManager.instance.AddCoins(10000);
-                    //PlayCoinUp(shopCoinsBtns[0].GetComponent<RectTransform>());
+                    ShowPurchaseSuccess(5);
+                    DataManager.instance.AddCoins(5000);
+                    break;
+                }
+            case "giant_bundle":
+                {
+                    ShowPurchaseSuccess(6);
+                    DataManager.instance.AddCoins(12000);
+                    break;
+                }
+            case "coins_600":
+                {
+                    ShowPurchaseSuccess(7);
+                    DataManager.instance.AddCoins(600);
+                    break;
+                }
+            case "coins_1500":
+                {
+                    ShowPurchaseSuccess(8);
+                    DataManager.instance.AddCoins(1500);
+                    break;
+                }
+            case "coins_3000":
+                {
+                    ShowPurchaseSuccess(9);
+                    DataManager.instance.AddCoins(3000);
+                    break;
+                }
+            case "coins_6000":
+                {
+                    ShowPurchaseSuccess(10);
+                    DataManager.instance.AddCoins(6000);
+                    break;
+                }
+            case "coins_15000":
+                {
+                    ShowPurchaseSuccess(11);
+                    DataManager.instance.AddCoins(15000);
                     break;
                 }
         }
