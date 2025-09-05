@@ -174,14 +174,14 @@ public class ModelController : MonoBehaviour
         CheckIfAnyPartOfModelCanFall();
 
         Sequence seq = DOTween.Sequence();
-        seq.Join(Bolt.transform.GetChild(0).DOLocalRotate(new Vector3(1440, 0, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.GetChild(0).DOLocalRotate(new Vector3(1440, 0, 0), 0.3f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
         seq.Join(Bolt.transform.DOMove(Bolt.transform.position - Bolt.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear));
 
 
-        seq.Append(Bolt.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.2f));
+        seq.Append(Bolt.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.5f));
         seq.Join(Bolt.transform.DORotate(new Vector3(15, -65, -25), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
 
-        seq.Append(Bolt.transform.DOMove(Placement.position, 0.2f));
+        seq.Append(Bolt.transform.DOMove(Placement.position, 0.3f));
         seq.Join(Bolt.transform.DORotate(new Vector3(0, 270, 0), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
 
 

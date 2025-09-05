@@ -91,9 +91,9 @@ public class BoltContainer : MonoBehaviour
         GameplayUiManager.Instance.PLayStarAnimationFromPosition(gameObject.GetComponent<RectTransform>());
 
         transform.DOMove(
-            BoltContainerManager.Instance.InitialTransformsForContainers[PlacementIndex].position, 0.7f).
+            BoltContainerManager.Instance.InitialTransformsForContainers[PlacementIndex].position, 1.6f).
             From(BoltContainerManager.Instance.FinalTransformsForContainers[PlacementIndex].position).
-            SetDelay(0.7f).
+            SetDelay(1.6f).
             OnStart(()=> BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(PlacementIndex));
         
     }
