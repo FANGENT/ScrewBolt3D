@@ -19,10 +19,15 @@ public class EmptyContainer : MonoBehaviour
     }
 
     //--A
-    void OnClickEmptyContainer()
+    void TestOnClickEmptyContainer()
     {
         BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(PlacementIndex);
         gameObject.SetActive(false);
+    }
+
+    void OnClickEmptyContainer()
+    {
+        GameplayUiManager.Instance.OnEmptyContainerButtonClicked(PlacementIndex, gameObject);
     }
 
 }

@@ -165,6 +165,7 @@ public class ModelController : MonoBehaviour
         if (Placement == null)
         {
             Debug.LogError("GameIsOver");
+            GameplayUiManager.Instance.OnLevelFailed();
             return;
         }
 
@@ -175,7 +176,7 @@ public class ModelController : MonoBehaviour
         Sequence seq = DOTween.Sequence();
 
         // 1? POP UP (0.2s)
-        seq.Append(Bolt.transform.DOMove(Bolt.transform.position + Vector3.up * 0.3f, 0.2f)
+        seq.Append(Bolt.transform.DOMove(Bolt.transform.position - Vector3.forward * 0.3f, 0.2f)
             .SetEase(Ease.OutBack));
 
         // 2? ROTATE while hovering (0.3s)
@@ -185,10 +186,10 @@ public class ModelController : MonoBehaviour
         // 3? MOVE toward placement (0.5s)
         Vector3 midPoint = (Bolt.transform.position + Placement.position) / 2f + Vector3.up * 0.2f;
         seq.Append(Bolt.transform.DOPath(
-            new Vector3[] { Bolt.transform.position, midPoint, Placement.position },
+            new Vector3[] { Bolt.transform.position /*midPoint*/, Placement.position },
             0.5f,
             PathType.CatmullRom
-        ).SetEase(Ease.InOutSine));
+        ).SetEase(Ease.Linear));
 
         // Rotate while flying
         seq.Join(Bolt.transform.DORotate(new Vector3(0, 270, 0), 0.5f, RotateMode.Fast));

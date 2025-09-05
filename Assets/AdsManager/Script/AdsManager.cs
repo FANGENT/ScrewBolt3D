@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 public enum RewardType
 {
-    cash, gold, grenade, coins, 
+    cash, gold, grenade, coins, container, 
 }
 public class AdsManager : MonoBehaviour
 {
@@ -87,6 +87,7 @@ public class AdsManager : MonoBehaviour
             RequestBanner();
             RequestInterstitial();
             RequestRewardBasedVideo();
+            LoadRewardedInterstitialAd();
         });
     }
 
@@ -319,7 +320,7 @@ public class AdsManager : MonoBehaviour
         RequestInterstitial();
         return false;
     }
-    private void ShowInterstitial()
+    public void ShowInterstitial()
     {
         if (_interstitialAd.CanShowAd())
         {

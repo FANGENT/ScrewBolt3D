@@ -55,6 +55,8 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        AdsManager.Instance.onPurchaseSuccess += OnPurhcaseSuccesful;
     }
 
     private void Start()
@@ -103,6 +105,11 @@ public class UIManager : MonoBehaviour
 
         // Animate into view
         settingsPanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.4f).SetEase(Ease.OutCubic);
+
+        if(AdsManager.Instance)
+        {
+            AdsManager.Instance.ShowInterstitial();
+        }
     }
 
     public void OnSettingsClosed()
@@ -211,16 +218,6 @@ public class UIManager : MonoBehaviour
     }
 
     #region Shop
-
-    public void PurchaseShopItem(string itemID)
-    {
-        if (SoundManager.Instance)
-        {
-            SoundManager.Instance.PlaySFX("Button Click");
-        }
-        // Implement purchase logic here IAP
-
-    }
 
     public void ShowPurchaseCancel()
     {
@@ -385,9 +382,9 @@ public class UIManager : MonoBehaviour
     {
         switch (sku)
         {
-            case "coinspack1":
+            case "fullpack":
                 {
-                    //DataManager.instance.AddCoins(1000);
+                    DataManager.instance.AddCoins(1500);
                     //PlayCoinUp(shopCoinsBtns[0].GetComponent<RectTransform>());
                     break;
                 }

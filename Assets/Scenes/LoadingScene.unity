@@ -2366,13 +2366,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7694574763140127511, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
         type: 3}
+      propertyPath: AppId
+      value: ca-app-pub-3940256099942544~3347511713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694574763140127511, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
+        type: 3}
+      propertyPath: bannerId
+      value: ca-app-pub-3940256099942544/6300978111
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694574763140127511, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
+        type: 3}
       propertyPath: testMode
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694574763140127511, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
+        type: 3}
+      propertyPath: interstitialId
+      value: ca-app-pub-3940256099942544/1033173712
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694574763140127511, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
+        type: 3}
+      propertyPath: rewardedVideoId
+      value: ca-app-pub-3940256099942544/5224354917
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694574763140127511, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
+        type: 3}
+      propertyPath: rewardedInterstitial
+      value: ca-app-pub-3940256099942544/5354046379
       objectReference: {fileID: 0}
     - target: {fileID: 7694574763629532733, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
         type: 3}
       propertyPath: m_Name
       value: AdsManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694574763629532734, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
+        type: 3}
+      propertyPath: skus.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694574763629532734, guid: bc63a576e1d05d441a8a91b3b3ec92ad,
+        type: 3}
+      propertyPath: 'skus.Array.data[1]'
+      value: fullpack
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

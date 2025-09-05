@@ -15,9 +15,8 @@ public class GameplayUiManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject settingPanel;
     public GameObject levelCompletePanel;
-    /*public GameObject levelCompletePanel;
     public GameObject levelFailPanel;
-    public GameObject gameOverPanel;*/
+    public GameObject watchAdPanel;
 
     [Header("Values")]
     public Image levelProgressImage;
@@ -27,6 +26,11 @@ public class GameplayUiManager : MonoBehaviour
     public GameObject starPrefab; // UI coin image prefab
     public RectTransform starsTarget; // e.g. Canvas or dedicated CoinLayer
     public RectTransform spawnPoint; // Where coins start (e.g. coin counter)
+
+    [Header("Watch Ad related Data for rewards")]
+    public int extraContainerIndex= -1;
+    public GameObject extraContainerEmptyButton = null;
+
 
     private void Awake()
     {
@@ -82,6 +86,86 @@ public class GameplayUiManager : MonoBehaviour
         levelCompletePanel.SetActive(true);
         levelCompletePanel.transform.GetChild(0).localScale = Vector3.zero;
         levelCompletePanel.transform.GetChild(0).DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+    }
+
+
+    public void OnLevelFailed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Level Failed");
+        }
+        levelFailPanel.SetActive(true);
+        levelFailPanel.transform.GetChild(0).localScale = Vector3.zero;
+        levelFailPanel.transform.GetChild(0).DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+    }
+
+    public void OnEmptyContainerButtonClicked(int placementIdx , GameObject emptyBtn)
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
+        watchAdPanel.SetActive(true);
+        watchAdPanel.transform.GetChild(0).localScale = Vector3.zero;
+        watchAdPanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+
+        //Store placementIdx and emptyBtn to use after ad is watched successfully
+        extraContainerIndex = placementIdx;
+        extraContainerEmptyButton = emptyBtn;
+
+
+        /*BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(placementIdx);
+        emptyBtn.SetActive(false);*/
+
+    }
+
+    public void OnCloseWatchAdPanel()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+
+        watchAdPanel
+            .transform.GetChild(0).DOScale(Vector3.zero, 0.2f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() => watchAdPanel.SetActive(false));
+    }
+
+    public void OnWatchingExtraContainerAd()
+    {
+        if (AdsManager.Instance)
+        {
+            if (AdsManager.Instance.HasRewardedVideo())
+            {
+                AdsManager.Instance.onRewardedVideoResult += OnSuccessfullyWatchingExtraContainerAd;
+                AdsManager.Instance.ShowRewardedVideo(RewardType.container, 1);
+            }
+            else
+            {
+                Debug.Log("No rewarded video available at the moment.");
+            }
+        }
+    }
+
+    private void OnSuccessfullyWatchingExtraContainerAd(RewardType rewardType, float amount)
+    {
+        if (rewardType == RewardType.container)
+        {
+            AdsManager.Instance.onRewardedVideoResult -= OnSuccessfullyWatchingExtraContainerAd;
+            OnCloseWatchAdPanel();
+            //DataManager.instance.AddCoins(100);
+            //PlayCoinUp(startCoinPosition);
+
+            BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(extraContainerIndex);
+            extraContainerEmptyButton.SetActive(false);
+
+
+
+            AdsManager.Instance.SetEvent("GotExtraContainerByAd");
+        }
     }
 
 
