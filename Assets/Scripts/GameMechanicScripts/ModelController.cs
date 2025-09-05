@@ -152,7 +152,67 @@ public class ModelController : MonoBehaviour
         return null;
     }
     GameObject lastBolt;
+
+    //Noman bhai unscrew bolt animation code
     public void UnScrewBolt(GameObject Bolt)
+    {
+        if (!Bolt.GetComponent<BlockedScrewsController>().CheckIfItCanBePulledOut())
+        {
+            Debug.LogError("BoltIsLocked");
+            return;
+        }
+        Transform Placement = GetSpaceForNewlyUnscrewedBolt(Bolt.transform);
+
+        if (Placement == null)
+        {
+            Debug.LogError("GameIsOver");
+            return;
+        }
+
+        Bolt.GetComponent<Collider>().enabled = false;
+        Bolt.transform.parent = Placement;
+        CheckIfAnyPartOfModelCanFall();
+
+        Sequence seq = DOTween.Sequence();
+        seq.Join(Bolt.transform.GetChild(0).DOLocalRotate(new Vector3(1440, 0, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.DOMove(Bolt.transform.position - Bolt.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear));
+
+
+        seq.Append(Bolt.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.2f));
+        seq.Join(Bolt.transform.DORotate(new Vector3(15, -65, -25), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+
+        seq.Append(Bolt.transform.DOMove(Placement.position, 0.2f));
+        seq.Join(Bolt.transform.DORotate(new Vector3(0, 270, 0), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+
+
+        // On Complete
+        seq.OnPlay(() =>
+        {
+            Bolt.transform.SetParent(Placement);
+
+            if (Bolt.GetComponentInParent<ExtraContainer>())
+            {
+                Bolt.transform.localScale = Vector3.one * 300f;
+            }
+            else
+            {
+                Bolt.transform.localScale = Vector3.one * 2;
+            }
+
+            Bolt.gameObject.layer = LayerMask.NameToLayer("UI");
+            Bolt.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("UI");
+        });
+
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("screw");
+        }
+        //seq.Play();
+        //lastBolt = Bolt;
+
+    }
+    //--A asif
+    /*public void UnScrewBolt(GameObject Bolt)
     {
         if (!Bolt.GetComponent<BlockedScrewsController>().CheckIfItCanBePulledOut())
         {
@@ -186,7 +246,7 @@ public class ModelController : MonoBehaviour
         // 3? MOVE toward placement (0.5s)
         Vector3 midPoint = (Bolt.transform.position + Placement.position) / 2f + Vector3.up * 0.2f;
         seq.Append(Bolt.transform.DOPath(
-            new Vector3[] { Bolt.transform.position /*midPoint*/, Placement.position },
+            new Vector3[] { Bolt.transform.position *//*midPoint*//*, Placement.position },
             0.5f,
             PathType.CatmullRom
         ).SetEase(Ease.Linear));
@@ -216,7 +276,7 @@ public class ModelController : MonoBehaviour
         {
             SoundManager.Instance.PlaySFX("screw");
         }
-    }
+    }*/
 
 
 
