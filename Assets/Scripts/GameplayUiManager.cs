@@ -17,6 +17,7 @@ public class GameplayUiManager : MonoBehaviour
     public GameObject levelCompletePanel;
     public GameObject levelFailPanel;
     public GameObject watchAdPanel;
+    public GameObject adNotAvailablePanel;
 
     [Header("Values")]
     public Image levelProgressImage;
@@ -100,6 +101,24 @@ public class GameplayUiManager : MonoBehaviour
         levelFailPanel.transform.GetChild(0).DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
     }
 
+    public void OnAdNotAvailable()
+    {
+        adNotAvailablePanel.SetActive(true);
+        adNotAvailablePanel.transform.GetChild(0).localScale = Vector3.zero;
+        adNotAvailablePanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+    }
+    public void OnCloseAdNotAvailablePanel()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        adNotAvailablePanel
+            .transform.GetChild(0).DOScale(Vector3.zero, 0.2f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() => adNotAvailablePanel.SetActive(false));
+    }
+
     public void OnEmptyContainerButtonClicked(int placementIdx , GameObject emptyBtn)
     {
         if (SoundManager.Instance)
@@ -145,8 +164,15 @@ public class GameplayUiManager : MonoBehaviour
             }
             else
             {
+                OnCloseWatchAdPanel();
+                OnAdNotAvailable();
                 Debug.Log("No rewarded video available at the moment.");
             }
+        }
+        else
+        {
+            OnCloseWatchAdPanel();
+            OnAdNotAvailable();
         }
     }
 
@@ -160,6 +186,7 @@ public class GameplayUiManager : MonoBehaviour
             //PlayCoinUp(startCoinPosition);
 
             BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(extraContainerIndex);
+            Debug.Log("Extra conatinaer index"+ extraContainerIndex);
             extraContainerEmptyButton.SetActive(false);
 
 

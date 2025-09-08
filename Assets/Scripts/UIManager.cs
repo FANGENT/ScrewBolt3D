@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     public GameObject purchaseCancelPanel;
     public GameObject aboutPanel;
     public GameObject purchaseSuccessPanel;
+    public GameObject languagePanel;
     /*public GameObject loadingScreen;
     public Slider loadingSlider;
     public GameObject notEnoughCoinsPanel;*/
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
     public Button removeAdsBtn;
     public Button levelGiftBtn;
     public Button purchaseClaimBtn;
+    public Button languageBtn;
     
 
     [Header("------Coin Drop Effect------------")]
@@ -73,6 +75,9 @@ public class UIManager : MonoBehaviour
 
         DataManager.onCoinsUpdated += CoinsUpdateCallback;
         CoinsUpdateCallback(); // Initialize coin display
+        int currentLevel = PlayerPrefs.GetInt("UnlockedLevel", 0);
+        currentLevel = currentLevel+1;
+        levelNumber.text = currentLevel.ToString();
     }
 
     void AddAllListeners()
@@ -83,6 +88,7 @@ public class UIManager : MonoBehaviour
         removeAdsBtn.onClick.AddListener(OnRemoveAds);
         levelGiftBtn.onClick.AddListener(OnLevelGiftPressed);
         purchaseClaimBtn.onClick.AddListener(OnPurchaseClaimPressed);
+        languageBtn.onClick.AddListener(OnLanguageBtnPressed);
         //watchAdCoinsBtn.onClick.AddListener(WatchAdForCoins);
     }
 
@@ -217,6 +223,31 @@ public class UIManager : MonoBehaviour
         aboutPanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(screenWidth, 0), 0.4f).SetEase(Ease.OutCubic).OnComplete(() =>
         {
             aboutPanel.SetActive(false);
+        });
+    }
+
+    public void OnLanguageBtnPressed()
+    {         
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        languagePanel.SetActive(true);
+        // Reset starting position to right side
+        languagePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(screenWidth, 0), 0f).SetEase(Ease.OutCubic);
+        // Animate into view
+        languagePanel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.4f).SetEase(Ease.OutCubic);
+    }
+    public void OnLanguageClosed()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        // Animate out of view to the right side
+        languagePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(screenWidth, 0), 0.4f).SetEase(Ease.OutCubic).OnComplete(() =>
+        {
+            languagePanel.SetActive(false);
         });
     }
 

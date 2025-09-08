@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &8905871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8905873}
+  - component: {fileID: 8905872}
+  m_Layer: 0
+  m_Name: Localization Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &8905872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bddbbc4ae4259b94d904fbddba2912a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8905873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.53846, y: 5.3653, z: 91.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &83751566
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,6 +778,7 @@ GameObject:
   - component: {fileID: 899516214}
   - component: {fileID: 899516216}
   - component: {fileID: 899516215}
+  - component: {fileID: 899516217}
   m_Layer: 5
   m_Name: TxtLoading
   m_TagString: Untagged
@@ -860,6 +905,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899516213}
   m_CullTransparentMesh: 1
+--- !u!114 &899516217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899516213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094170bb66d2f6f45b1a48997348684c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: Loading
 --- !u!1 &1002340519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,6 +1254,7 @@ GameObject:
   - component: {fileID: 1563990686}
   - component: {fileID: 1563990685}
   - component: {fileID: 1563990687}
+  - component: {fileID: 1563990688}
   m_Layer: 5
   m_Name: Terms of Services
   m_TagString: Untagged
@@ -1270,10 +1329,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 39.15
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 4
@@ -1378,6 +1437,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1563990688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563990683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094170bb66d2f6f45b1a48997348684c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: TermsOfServices
 --- !u!1 &1639787691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2049,6 +2121,7 @@ GameObject:
   - component: {fileID: 1945143159}
   - component: {fileID: 1945143158}
   - component: {fileID: 1945143160}
+  - component: {fileID: 1945143161}
   m_Layer: 5
   m_Name: Privacy Policy
   m_TagString: Untagged
@@ -2073,7 +2146,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -90, y: 85}
-  m_SizeDelta: {x: 292, y: 50}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1945143158
 MonoBehaviour:
@@ -2123,10 +2196,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 41.55
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 4
@@ -2231,6 +2304,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1945143161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945143156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094170bb66d2f6f45b1a48997348684c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: PrivacyPolicy
 --- !u!1 &1950006812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,3 +2709,4 @@ SceneRoots:
   - {fileID: 1679383369}
   - {fileID: 2006929480}
   - {fileID: 1335546847}
+  - {fileID: 8905873}
