@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -103,5 +104,20 @@ public class LevelManager : MonoBehaviour
     public int GetUnlockedLevel()
     {
         return PlayerPrefs.GetInt(UNLOCKED_KEY, 0);
+    }
+
+    public void CenterTheModel()
+    {
+        if (currentModel != null)
+        {
+            // Kill any existing tweens to avoid conflicts
+            currentModel.transform.DOKill();
+
+            // Smoothly move to center
+            currentModel.transform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuad);
+
+            // Smoothly rotate to identity
+            currentModel.transform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuad);
+        }
     }
 }
