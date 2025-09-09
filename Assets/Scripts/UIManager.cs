@@ -37,7 +37,15 @@ public class UIManager : MonoBehaviour
     public Button levelGiftBtn;
     public Button purchaseClaimBtn;
     public Button languageBtn;
-    
+
+    [Header("------Level Gift------------")]
+    public int currentLevel= 1;
+    public Image levelGiftFiller1;
+    public Image levelGiftFiller2;
+    public int giftRewardCoins = 50; // Amount of coins rewarded per gift
+    private bool canClaimGift = false;
+
+
 
     [Header("------Coin Drop Effect------------")]
     public GameObject coinPrefab; // UI coin image prefab
@@ -75,9 +83,11 @@ public class UIManager : MonoBehaviour
 
         DataManager.onCoinsUpdated += CoinsUpdateCallback;
         CoinsUpdateCallback(); // Initialize coin display
-        int currentLevel = PlayerPrefs.GetInt("UnlockedLevel", 0);
+        currentLevel = PlayerPrefs.GetInt("UnlockedLevel", 0);
         currentLevel = currentLevel+1;
         levelNumber.text = currentLevel.ToString();
+
+        UpdateGiftProgress();
     }
 
     void AddAllListeners()
@@ -197,6 +207,51 @@ public class UIManager : MonoBehaviour
 
 
         TestCoinBuy();
+    }
+
+    /// <summary>
+    /// Updates filler progress (syncs both fillers).
+    /// </summary>
+    private void UpdateGiftProgress()
+    {
+        // Progress toward gift: 0/3, 1/3, 2/3
+        int progressStep = (currentLevel - 1) % 3;
+
+        float fillAmount = (progressStep + 1) / 3f;
+        if (currentLevel % 3 == 0) fillAmount = 1f;
+
+        // Apply same progress to both fillers
+        if (levelGiftFiller1) levelGiftFiller1.fillAmount = fillAmount;
+        if (levelGiftFiller2) levelGiftFiller2.fillAmount = fillAmount;
+
+        // Check if gift is ready (every 3rd level)
+        canClaimGift = (currentLevel % 3 == 0);
+    }
+
+    /// <summary>
+    /// Call this when player taps claim gift button.
+    /// </summary>
+    public void ClaimGift()
+    {
+        if (!canClaimGift)
+        {
+            Debug.Log("Gift not ready yet!");
+            return;
+        }
+
+        // Add coins
+        int coins = PlayerPrefs.GetInt("COINS", 0);
+        coins += giftRewardCoins;
+        PlayerPrefs.SetInt("COINS", coins);
+
+        Debug.Log($"Gift Claimed! +{giftRewardCoins} coins. Total: {coins}");
+
+        // Reset claim state
+        canClaimGift = false;
+
+        // Reset progress fillers for next cycle
+        if (levelGiftFiller1) levelGiftFiller1.fillAmount = 0f;
+        if (levelGiftFiller2) levelGiftFiller2.fillAmount = 0f;
     }
 
     public void OnAboutPressed()

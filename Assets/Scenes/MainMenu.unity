@@ -29202,7 +29202,7 @@ GameObject:
   - component: {fileID: 1453855988}
   - component: {fileID: 1453855987}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: LevelGiftFiller1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29252,7 +29252,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.63
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -35084,7 +35084,7 @@ GameObject:
   - component: {fileID: 1681290283}
   - component: {fileID: 1681290282}
   m_Layer: 5
-  m_Name: BG Filler (1)
+  m_Name: LevelGiftFiller2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41519,6 +41519,9 @@ MonoBehaviour:
   levelGiftBtn: {fileID: 612279340}
   purchaseClaimBtn: {fileID: 1349207080}
   languageBtn: {fileID: 811882791}
+  currentLevel: 1
+  levelGiftFiller1: {fileID: 1453855987}
+  levelGiftFiller2: {fileID: 1681290282}
   coinPrefab: {fileID: 588769425826850772, guid: 14b75d6cd35004649a158af915a3d9fd,
     type: 3}
   coinTarget: {fileID: 7487856655301895706}
