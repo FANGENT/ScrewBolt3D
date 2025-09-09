@@ -8,10 +8,20 @@ public class DataManager : MonoBehaviour
 
     [Header("Data")]
     public int coins;
+    public int drills;
+    public int hammers;
+    public int wipers;
+
     private const string coinsKey = "Coins";
+    private const string drillsKey = "Drills";
+    private const string hammersKey = "Hammers";
+    private const string wipersKey = "Wipers";
 
     [Header("Events")]
     public static Action onCoinsUpdated;
+    public static Action onDrillsUpdated;
+    public static Action onHammersUpdated;
+    public static Action onWipersUpdated;
 
     private void Awake()
     {
@@ -28,6 +38,7 @@ public class DataManager : MonoBehaviour
         LoadData();
     }
 
+    #region Coins
     public void AddCoins(int amount)
     {
         coins += amount;
@@ -37,13 +48,8 @@ public class DataManager : MonoBehaviour
 
     public void Purchase(int price)
     {
-        /*coins -= price;
-        SaveData();
-        onCoinsUpdated?.Invoke();*/
-
         int previousCoins = coins;
         coins -= price;
-
         SaveData();
 
         // Animate the counter from previousCoins to new coins
@@ -60,19 +66,88 @@ public class DataManager : MonoBehaviour
         UIManager.Instance.coinsText.text = value.ToString("N0");
     }
 
-    public int GetCoins()
+    public int GetCoins() => coins;
+    #endregion
+
+    #region Drills
+    public void AddDrills(int amount)
     {
-        return coins;
+        drills += amount;
+        SaveData();
+        onDrillsUpdated?.Invoke();
     }
 
+    public void UseDrill()
+    {
+        if (drills > 0)
+        {
+            drills--;
+            SaveData();
+            onDrillsUpdated?.Invoke();
+        }
+    }
+
+    public int GetDrills() => drills;
+    #endregion
+
+    #region Hammers
+    public void AddHammers(int amount)
+    {
+        hammers += amount;
+        SaveData();
+        onHammersUpdated?.Invoke();
+    }
+
+    public void UseHammer()
+    {
+        if (hammers > 0)
+        {
+            hammers--;
+            SaveData();
+            onHammersUpdated?.Invoke();
+        }
+    }
+
+    public int GetHammers() => hammers;
+    #endregion
+
+    #region Wipers
+    public void AddWipers(int amount)
+    {
+        wipers += amount;
+        SaveData();
+        onWipersUpdated?.Invoke();
+    }
+
+    public void UseWiper()
+    {
+        if (wipers > 0)
+        {
+            wipers--;
+            SaveData();
+            onWipersUpdated?.Invoke();
+        }
+    }
+
+    public int GetWipers() => wipers;
+    #endregion
+
+    #region Save/Load
     private void LoadData()
     {
-        coins = PlayerPrefs.GetInt(coinsKey);
-        //onCoinsUpdated?.Invoke();
+        coins = PlayerPrefs.GetInt(coinsKey, 0);
+        drills = PlayerPrefs.GetInt(drillsKey, 0);
+        hammers = PlayerPrefs.GetInt(hammersKey, 0);
+        wipers = PlayerPrefs.GetInt(wipersKey, 0);
     }
 
     private void SaveData()
     {
         PlayerPrefs.SetInt(coinsKey, coins);
+        PlayerPrefs.SetInt(drillsKey, drills);
+        PlayerPrefs.SetInt(hammersKey, hammers);
+        PlayerPrefs.SetInt(wipersKey, wipers);
+        PlayerPrefs.Save();
     }
+    #endregion
 }
