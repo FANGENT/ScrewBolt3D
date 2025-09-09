@@ -88,13 +88,38 @@ public class BoltContainer : MonoBehaviour
 
     private void ActionsCarriedOutWhenContainerIsFilledCompletely()
     {
-        GameplayUiManager.Instance.PLayStarAnimationFromPosition(gameObject.GetComponent<RectTransform>());
+        RectTransform containerPos = gameObject.GetComponent<RectTransform>();
 
         transform.DOMove(
-            BoltContainerManager.Instance.InitialTransformsForContainers[PlacementIndex].position, 1.6f).
-            From(BoltContainerManager.Instance.FinalTransformsForContainers[PlacementIndex].position).
-            SetDelay(1.6f).
-            OnStart(()=> BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(PlacementIndex));
-        
+            BoltContainerManager.Instance.InitialTransformsForContainers[PlacementIndex].position, 1.6f)
+            .From(BoltContainerManager.Instance.FinalTransformsForContainers[PlacementIndex].position)
+            .SetDelay(1.3f)
+            .OnStart(() =>
+            {
+                // First do your container logic
+                BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(PlacementIndex);
+
+                // Then wait 0.1s after movement starts, and play star animation
+                DOVirtual.DelayedCall(0.01f, () =>
+                {
+                    // Calculate true world center of the rect
+                    Vector3 worldCenter = containerPos.TransformPoint(containerPos.rect.center);
+
+                    // Create a temporary object at that position
+                    GameObject tempCenter = new GameObject("TempStarCenter");
+                    RectTransform tempRect = tempCenter.AddComponent<RectTransform>();
+                    tempRect.position = worldCenter;
+                    tempRect.SetParent(containerPos.parent, true); // put it in same canvas space
+
+                    // Play star animation from true center
+                    GameplayUiManager.Instance.PLayStarAnimationFromPosition(tempRect);
+
+                    // Clean up after animation if needed
+                    Destroy(tempCenter, 2f);
+                });
+
+            });
     }
+
+
 }
