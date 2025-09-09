@@ -12,10 +12,29 @@ public class ToggleLanguageHandler : MonoBehaviour
 
     private Button button;
 
+    private void Awake()
+    {
+        // Set default language if none exists
+        if (PlayerPrefs.HasKey("LANGUAGE"))
+        {
+            string lang= PlayerPrefs.GetString("LANGUAGE");
+            if(lang == "English")
+                PlayerPrefs.SetInt(ToggleLanguage.English.ToString(), 1);
+            else if(lang == "Spanish")
+                PlayerPrefs.SetInt(ToggleLanguage.Spanish.ToString(), 1);
+            else if(lang == "French")
+                PlayerPrefs.SetInt(ToggleLanguage.French.ToString(), 1);
+
+            PlayerPrefs.Save();
+        }
+    }
+
     void Start()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OnToggleButtonPressed);
+
+        // Always update visuals after prefs are set
         UpdateVisual();
     }
 
@@ -23,7 +42,7 @@ public class ToggleLanguageHandler : MonoBehaviour
     {
         string key = toggleLanguage.ToString();
 
-        //Reset all other toggles to off
+        // Reset all other toggles to off
         ToggleLanguageHandler[] allToggles = FindObjectsOfType<ToggleLanguageHandler>();
         foreach (var toggle in allToggles)
         {
@@ -31,11 +50,10 @@ public class ToggleLanguageHandler : MonoBehaviour
             toggle.UpdateVisual();
         }
 
-        //Enable only the selected toggle
+        // Enable only the selected toggle
         PlayerPrefs.SetInt(key, 1);
-        PlayerPrefs.Save();
 
-        //Set language + index
+        // Set language + index
         switch (toggleLanguage)
         {
             case ToggleLanguage.English:
@@ -52,9 +70,10 @@ public class ToggleLanguageHandler : MonoBehaviour
                 break;
         }
 
+        PlayerPrefs.Save();
         UpdateVisual();
 
-        //Reload localized text
+        // Reload localized text
         LocalizationManager.instance.LoadLocalizedText(
             LocalizationManager.instance.GetCurrentLanguage(),
             LocalizationManager.instance.GetCurrentLanguageIndex()
@@ -66,7 +85,8 @@ public class ToggleLanguageHandler : MonoBehaviour
         string key = toggleLanguage.ToString();
         bool isOn = PlayerPrefs.GetInt(key, 0) == 1;
 
-        onIcon.enabled = isOn;
-        offIcon.enabled = !isOn;
+        // Enable the correct icon state
+        if (onIcon != null) onIcon.enabled = isOn;
+        if (offIcon != null) offIcon.enabled = !isOn;
     }
 }
