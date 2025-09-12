@@ -1167,6 +1167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: 0
+  drills: 0
+  hammers: 0
+  wipers: 0
 --- !u!1 &1553453935
 GameObject:
   m_ObjectHideFlags: 0

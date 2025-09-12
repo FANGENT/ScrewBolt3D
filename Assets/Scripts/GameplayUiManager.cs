@@ -45,8 +45,6 @@ public class GameplayUiManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f; // Ensure time scale is set to normal
-
-        
     }
 
 
@@ -87,6 +85,17 @@ public class GameplayUiManager : MonoBehaviour
         levelCompletePanel.SetActive(true);
         levelCompletePanel.transform.GetChild(0).localScale = Vector3.zero;
         levelCompletePanel.transform.GetChild(0).DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+
+        LevelManager.Instance.UnlockNextLevel();
+    }
+
+    public void OnContinue()
+    {
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlaySFX("Button Click");
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 

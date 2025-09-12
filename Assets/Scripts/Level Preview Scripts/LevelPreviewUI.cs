@@ -30,7 +30,7 @@ public class LevelPreviewUI : MonoBehaviour
     private void Start()
     {
        levelNumber = LevelManager.Instance.currentLevel;
-        completedSteps = levelNumber - 1;
+        completedSteps = levelNumber;
         Build();
     }
 
@@ -61,7 +61,7 @@ public class LevelPreviewUI : MonoBehaviour
         }
 
         // add LV badge at the end
-        LevelBadgeUI badge = Instantiate(levelBadgePrefab, parent.GetChild(levelNumber-1));
+        LevelBadgeUI badge = Instantiate(levelBadgePrefab, parent.GetChild(levelNumber));
         badge.SetLevel(levelNumber);
     }
 

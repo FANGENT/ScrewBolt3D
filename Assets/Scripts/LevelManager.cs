@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class LevelManager : MonoBehaviour
     [Header("Level Settings")]
     public List<GameObject> models; // Prefabs for each level
     public Transform levelParent;   // Parent to hold instantiated level
-    public int currentLevel;        // Current level index
+    public int currentLevel;        // Current level index (0-based)
     public GameObject currentModel; // Current level model
 
     private GameObject currentLevelObj;
@@ -20,16 +19,10 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        // Singleton pattern
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
         LoadCurrentLevel();
-    }
-
-    void Start()
-    {
-        //LoadCurrentLevel();
     }
 
     /// <summary>
@@ -37,7 +30,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void LoadCurrentLevel()
     {
-        currentLevel = PlayerPrefs.GetInt(LEVEL_KEY, 1);
+        currentLevel = PlayerPrefs.GetInt(LEVEL_KEY, 0); // Default = 0
 
         if (currentLevel >= models.Count)
             currentLevel = 0; // Reset if out of range
@@ -49,8 +42,6 @@ public class LevelManager : MonoBehaviour
         currentLevelObj.SetActive(true);
 
         currentModel = currentLevelObj;
-
-       /* ModelController.Instance.InitializeTheGame();*/
     }
 
     /// <summary>
@@ -60,11 +51,19 @@ public class LevelManager : MonoBehaviour
     {
         int unlockedLevel = PlayerPrefs.GetInt(UNLOCKED_KEY, 0);
 
+        // Unlock next if not already
         if (currentLevel + 1 > unlockedLevel && currentLevel + 1 < models.Count)
         {
             PlayerPrefs.SetInt(UNLOCKED_KEY, currentLevel + 1);
         }
+
+        // Advance CurrentLevel too
+        PlayerPrefs.SetInt(LEVEL_KEY, currentLevel + 1);
+        PlayerPrefs.Save();
+
+        Debug.Log($"UnlockedLevel = {PlayerPrefs.GetInt(UNLOCKED_KEY)}, CurrentLevel = {PlayerPrefs.GetInt(LEVEL_KEY)}");
     }
+
 
     /// <summary>
     /// Loads the next level.
@@ -110,13 +109,8 @@ public class LevelManager : MonoBehaviour
     {
         if (currentModel != null)
         {
-            // Kill any existing tweens to avoid conflicts
             currentModel.transform.DOKill();
-
-            // Smoothly move to center
             currentModel.transform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuad);
-
-            // Smoothly rotate to identity
             currentModel.transform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuad);
         }
     }
