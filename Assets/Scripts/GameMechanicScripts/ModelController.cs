@@ -166,6 +166,7 @@ public class ModelController : MonoBehaviour
         if (Placement == null)
         {
             Debug.LogError("GameIsOver");
+            GameplayUiManager.Instance.OnLevelFailed();
             return;
         }
 
@@ -179,10 +180,10 @@ public class ModelController : MonoBehaviour
 
 
         seq.Append(Bolt.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.5f));
-        seq.Join(Bolt.transform.DORotate(new Vector3(15, -65, -25), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.DORotate(new Vector3(15, 125, 25), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
 
         seq.Append(Bolt.transform.DOMove(Placement.position, 0.3f));
-        seq.Join(Bolt.transform.DORotate(new Vector3(0, 270, 0), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.DORotate(new Vector3(0, 90, 0), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
 
 
         // On Complete

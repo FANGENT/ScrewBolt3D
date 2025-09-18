@@ -199,7 +199,7 @@ public class BoltContainerManager : MonoBehaviour
                     seq.Join(MatchingBoltFoundInExtraContainer.transform.DOMove(MatchingBoltFoundInExtraContainer.transform.position - MatchingBoltFoundInExtraContainer.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear)/*.OnComplete(() => MatchingBoltFoundInExtraContainer.transform.SetParent(null))*/);
 
                     seq.Append(MatchingBoltFoundInExtraContainer.transform.DOMove(Placement.position, 0.2f)/*.OnComplete(()=> )*/);
-                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DORotate(new Vector3(0, 270, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DORotate(new Vector3(0, 90, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
 
                     seq.onComplete = () =>
                     {

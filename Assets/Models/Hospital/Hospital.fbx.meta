@@ -3,7 +3,122 @@ guid: 77dba11a8f991704dbc028cebe72052e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02_-_Default
+    second: {fileID: 2100000, guid: a29fe8d0986de2a48a90d4d25c41c9e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03_-_Default
+    second: {fileID: 2100000, guid: bb7fe890f9400bb42b55ea328fe83caf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BAMPER
+    second: {fileID: 2100000, guid: aedf7a5fc4a605e4bba9018422b5a9cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BODY
+    second: {fileID: 2100000, guid: 7b1a61f990bae6f46a8e88b8d29cd8b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CENTER
+    second: {fileID: 2100000, guid: b7d5570c6086ccc438af0c716057dab9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DISKI
+    second: {fileID: 2100000, guid: efe8fec2c14679a4e85a146357b4e742, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FARA_IN
+    second: {fileID: 2100000, guid: cd5e0642a27979d4a9323c59e51115ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Firstaid_red
+    second: {fileID: 2100000, guid: c16b874110e78f74fa2a5c1c157331c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Firstaid_white
+    second: {fileID: 2100000, guid: cf759c39d4378794588a4bd2fc3857a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GLASS_BODY
+    second: {fileID: 2100000, guid: 8bca5436312496049b874f797f6c028e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GLASS_FARA
+    second: {fileID: 2100000, guid: a24b5de8159b98d4c8eaac3c516ae710, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MIGALKA_LEFT
+    second: {fileID: 2100000, guid: 393aed98d8eaa2a43a0ab53dd82d8680, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 1a0ff6b5887364645b7afbe6128607e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: d6482532eae87ec488ca6458024aec52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 16b6ac2b3e11c8c40b4127331f235de1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.009
+    second: {fileID: 2100000, guid: aad9122e49f54ea47937351e87f69a30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: POLOSKA
+    second: {fileID: 2100000, guid: b100c68fc7a6a77458cc7d7a1a8f16d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RED
+    second: {fileID: 2100000, guid: 07750e85bbff47b4a8e86127eebe8a8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof
+    second: {fileID: 2100000, guid: 954deea2c810a94478eecdeb7786d779, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SHINA
+    second: {fileID: 2100000, guid: ca2d1d21d5e572541a954ba893a724e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: 0e50980caaa4dad498b9945af41fb4a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Windows black
+    second: {fileID: 2100000, guid: 2bf12692d140c76459ef3a06c9772b1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Windows_white
+    second: {fileID: 2100000, guid: f4c719314b9ff4841a7e3dfd30961264, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
