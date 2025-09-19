@@ -62,7 +62,7 @@ public class LevelPreviewUI : MonoBehaviour
 
         // add LV badge at the end
         LevelBadgeUI badge = Instantiate(levelBadgePrefab, parent.GetChild(levelNumber));
-        badge.SetLevel(levelNumber);
+        badge.SetLevel(levelNumber+1);
     }
 
     private void EnsureIconListSize()
