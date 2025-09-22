@@ -78,7 +78,12 @@ public class GameplayUiManager : MonoBehaviour
 
     public void OnLevelComplete()
     {
-        if(SoundManager.Instance)
+        StartCoroutine(DelayLevelComplete());
+    }
+    IEnumerator DelayLevelComplete()
+    {
+        yield return new WaitForSeconds(1.5f);
+        if (SoundManager.Instance)
         {
             SoundManager.Instance.PlaySFX("Level Complete");
         }

@@ -3,7 +3,17 @@ guid: f2201d82ac6008a4f9b361d0c27f1a89
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Special
+    second: {fileID: 2100000, guid: a4a5b629cb350f746a7308bd730ae4ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw
+    second: {fileID: 2100000, guid: db85fcf154a6a864e892d1a071a4d6a9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +43,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 35
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -41,8 +51,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -88,7 +98,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.35
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

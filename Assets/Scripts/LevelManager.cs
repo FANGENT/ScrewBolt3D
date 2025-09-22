@@ -17,6 +17,10 @@ public class LevelManager : MonoBehaviour
     private const string LEVEL_KEY = "CurrentLevel";
     private const string UNLOCKED_KEY = "UnlockedLevel";
 
+    [Header("Testing")]
+    public bool isTesting = false;
+    public int testLevel = 0;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -31,6 +35,10 @@ public class LevelManager : MonoBehaviour
     public void LoadCurrentLevel()
     {
         currentLevel = PlayerPrefs.GetInt(LEVEL_KEY, 0); // Default = 0
+
+        //If testing, override
+        if (isTesting)
+            currentLevel = testLevel;
 
         if (currentLevel >= models.Count)
             currentLevel = 0; // Reset if out of range

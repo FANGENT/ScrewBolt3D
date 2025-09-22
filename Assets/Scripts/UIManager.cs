@@ -21,9 +21,11 @@ public class UIManager : MonoBehaviour
     public GameObject aboutPanel;
     public GameObject purchaseSuccessPanel;
     public GameObject languagePanel;
-    /*public GameObject loadingScreen;
-    public Slider loadingSlider;
-    public GameObject notEnoughCoinsPanel;*/
+
+    [Header("Loading UI")]
+    public GameObject loadingPanel;
+    public Image loadingFillImage;
+    /*public GameObject notEnoughCoinsPanel;*/
 
     [Header("------Values------------")]
     public TextMeshProUGUI coinsText;
@@ -104,11 +106,40 @@ public class UIManager : MonoBehaviour
 
     void Play()
     {
-        if(SoundManager.Instance)
+        if (SoundManager.Instance)
         {
             SoundManager.Instance.PlaySFX("Button Click");
         }
-        SceneManager.LoadScene(2);
+
+        // Enable loading UI
+        loadingPanel.SetActive(true);
+        loadingFillImage.fillAmount = 0f;
+
+        // Start async load
+        StartCoroutine(LoadSceneAsync(2));
+    }
+    private IEnumerator LoadSceneAsync(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        operation.allowSceneActivation = false; // wait until fully loaded
+
+        while (!operation.isDone)
+        {
+            // Unity loading progress goes 0 ? 0.9, then jumps to 1 when ready
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            loadingFillImage.fillAmount = progress;
+
+            // When done, allow scene to activate
+            if (operation.progress >= 0.9f)
+            {
+                // optional: wait for 100% slider fill
+                loadingFillImage.fillAmount = 1f;
+                yield return new WaitForSeconds(0.2f);
+                operation.allowSceneActivation = true;
+            }
+
+            yield return null;
+        }
     }
 
     void OnSettingPressed()
