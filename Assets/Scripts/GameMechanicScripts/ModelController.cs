@@ -175,7 +175,7 @@ public class ModelController : MonoBehaviour
         CheckIfAnyPartOfModelCanFall();
 
         Sequence seq = DOTween.Sequence();
-        seq.Join(Bolt.transform.GetChild(0).DOLocalRotate(new Vector3(1440, 0, 0), 0.3f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.DOLocalRotate(new Vector3(1440, 0, 0), 0.3f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
         seq.Join(Bolt.transform.DOMove(Bolt.transform.position - Bolt.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear));
 
 
@@ -193,15 +193,14 @@ public class ModelController : MonoBehaviour
 
             if (Bolt.GetComponentInParent<ExtraContainer>())
             {
-                Bolt.transform.localScale = Vector3.one * 300f;
+                Bolt.transform.localScale = Vector3.one * 200f;
             }
             else
             {
-                Bolt.transform.localScale = Vector3.one * 2;
+                Bolt.transform.localScale = Vector3.one * 1.3f;
             }
 
             Bolt.gameObject.layer = LayerMask.NameToLayer("UI");
-            Bolt.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("UI");
         });
 
         if (SoundManager.Instance)

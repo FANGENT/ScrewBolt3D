@@ -195,7 +195,7 @@ public class BoltContainerManager : MonoBehaviour
                 {
                     MatchingBoltFoundInExtraContainer.parent = Placement;
                     Sequence seq = DOTween.Sequence();
-                    seq.Join(MatchingBoltFoundInExtraContainer.transform.GetChild(0).DOLocalRotate(new Vector3(1440, 0, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DOLocalRotate(new Vector3(1440, 0, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
                     seq.Join(MatchingBoltFoundInExtraContainer.transform.DOMove(MatchingBoltFoundInExtraContainer.transform.position - MatchingBoltFoundInExtraContainer.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear)/*.OnComplete(() => MatchingBoltFoundInExtraContainer.transform.SetParent(null))*/);
 
                     seq.Append(MatchingBoltFoundInExtraContainer.transform.DOMove(Placement.position, 0.2f)/*.OnComplete(()=> )*/);
@@ -204,7 +204,7 @@ public class BoltContainerManager : MonoBehaviour
                     seq.onComplete = () =>
                     {
                         //--A Bolt is placed in the container now, so reset its scale to normal
-                        MatchingBoltFoundInExtraContainer.transform.localScale = Vector3.one * 2f;
+                        MatchingBoltFoundInExtraContainer.transform.localScale = Vector3.one * 1.2f;
                         MatchingBoltFoundInExtraContainer.gameObject.layer = LayerMask.NameToLayer("UI");
                     };
 
