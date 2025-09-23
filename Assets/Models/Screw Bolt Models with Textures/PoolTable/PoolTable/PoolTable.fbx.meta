@@ -3,7 +3,27 @@ guid: c83b00fead041e644ac3822dcfe83926
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Special
+    second: {fileID: 2100000, guid: 7255aec77b72bfe47a9c766a672eb9ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_PoolTable02
+    second: {fileID: 2100000, guid: f3f50c83248277a40957b14da604e2eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_PoolTable03
+    second: {fileID: 2100000, guid: 8b6e01ac3f97ed34893ce66f18816c56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw
+    second: {fileID: 2100000, guid: 65384d77c95c93246b2c0b6adf1330d5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +53,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 30
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +108,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.29999998
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

@@ -3,7 +3,32 @@ guid: f42a52a58267ef6469138ed6fc7cd3af
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Special
+    second: {fileID: 2100000, guid: ae318265b18f47848aa90c04e854383f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Special_Wine
+    second: {fileID: 2100000, guid: bf0ce32d8f3a0cd43b58a12649cbfa23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_Wine_02
+    second: {fileID: 2100000, guid: 7206b86971bd1414f9f694618eae10ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_Wine_03
+    second: {fileID: 2100000, guid: 24a7375f8eaa12d4db24d8edf6ac000c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw
+    second: {fileID: 2100000, guid: a9973844b3b56a147b3df95d6fc6c1dd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +58,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 35
+    globalScale: 30
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +113,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.35
+    globalScale: 0.29999998
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

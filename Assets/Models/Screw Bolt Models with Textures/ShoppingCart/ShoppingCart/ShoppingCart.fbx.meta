@@ -3,7 +3,32 @@ guid: febf22020c78ae54d8494e572f538301
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Food_Can
+    second: {fileID: 2100000, guid: b43a16a1b1861934986053f2bb1c848e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Food_Chips
+    second: {fileID: 2100000, guid: 59ca176f58040034983a6c39b36be3a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Food_Juice
+    second: {fileID: 2100000, guid: 6f87c17602cac7241a1008953f4466ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_O
+    second: {fileID: 2100000, guid: fab678d34db82404da32533495995a3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw
+    second: {fileID: 2100000, guid: 0044ec1870833c246834023480060089, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +58,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 30
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +113,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 30
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

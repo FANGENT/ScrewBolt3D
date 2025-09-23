@@ -3,7 +3,47 @@ guid: cde18c34754779940856e50cdf231921
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Special
+    second: {fileID: 2100000, guid: d56dc1d57ad48c84b817ff748192fbb2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_VegetableBag02
+    second: {fileID: 2100000, guid: 11781bdb12cbe51478acf2cf7e3ad42a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_VegetableBag03
+    second: {fileID: 2100000, guid: ef41d6019de9ca04eaf4c6f745a1967e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_VegetableBag04
+    second: {fileID: 2100000, guid: 5ec0965bbab27ab41b656937b95a584d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_VegetableBag05
+    second: {fileID: 2100000, guid: 0c508994f0277cb4b9b2dd3250c2eeee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_VegetableBag06
+    second: {fileID: 2100000, guid: 99347f6c955d1084a8679193cb729fa1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_VegetableBag07
+    second: {fileID: 2100000, guid: 770e6d29a2e63a544b3974ba5357ac24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw
+    second: {fileID: 2100000, guid: c8810e37731e33540bb76951c392a8c5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +73,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 30
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +128,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 30
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

@@ -3,7 +3,57 @@ guid: 7855dcf5eb351754a933efffc88aa069
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Money_Dollar
+    second: {fileID: 2100000, guid: 2b4703c325c9b3746b0745666a17f861, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_O
+    second: {fileID: 2100000, guid: 60807f1462172f042af21d9e3f15d947, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_O_metal
+    second: {fileID: 2100000, guid: 62b976bb2b3cac044992431b26035391, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Special
+    second: {fileID: 2100000, guid: 1db28b1af7490074c93fb6652534c136, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default-Material
+    second: {fileID: 2100000, guid: b7bdb40a4a7859e4bbbdfa0aaa78f184, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_Suitcase_01
+    second: {fileID: 2100000, guid: bd2ee31c23bfd1d45bb0a0dfe1b1b021, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_Suitcase_02
+    second: {fileID: 2100000, guid: 027ed125b978c4244bf22f27527012b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_Suitcase_03
+    second: {fileID: 2100000, guid: 6ce4b5af45c48c54a8fc20ae424cfc8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_Suitcase_04
+    second: {fileID: 2100000, guid: 1156fdf410781334384d074d8641a73b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw
+    second: {fileID: 2100000, guid: 888ee4da373629c409e7169033a173a2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +83,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 30
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +138,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 30
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

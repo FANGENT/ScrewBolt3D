@@ -3,7 +3,42 @@ guid: 4f778d619b775c34997dea7a185f53db
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Baked enamel
+    second: {fileID: 2100000, guid: 9bb988ea57c06cb428ddee02fed5d0fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Board_Catmap_Glass
+    second: {fileID: 2100000, guid: a301fd3687b6a2c42ace4ec59a872796, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_SuperGold
+    second: {fileID: 2100000, guid: 2a7ab58570bb9aa4a93689fabe05acd1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_SuperMetal
+    second: {fileID: 2100000, guid: 034c2de0dcb7c9745be61b49ecd1429b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_WaterGun_03
+    second: {fileID: 2100000, guid: b79853d823f68a0468b11c7235343c02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mi_WaterGun_06
+    second: {fileID: 2100000, guid: c7724b42ce63ee849b123f2b0abb0573, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw
+    second: {fileID: 2100000, guid: f6a2cbd0b484646438c8ed20b5dafb63, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +68,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 30
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +123,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.29999998
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
