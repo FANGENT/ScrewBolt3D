@@ -121,7 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 5102759042614385806}
   Debuggable: 0
 --- !u!1 &208999675823295852
 GameObject:
@@ -181,7 +182,6 @@ Transform:
   - {fileID: 1661105023384833900}
   - {fileID: 6927590105848902035}
   - {fileID: 4702666123227965063}
-  - {fileID: 8317452031271296794}
   - {fileID: 8272012204063321871}
   - {fileID: 3276379151858645331}
   - {fileID: 1375416980864986454}
@@ -2570,130 +2570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
-  Debuggable: 0
---- !u!1 &2384217193931223830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8317452031271296794}
-  - component: {fileID: 1316465876984506720}
-  - component: {fileID: 7157074724719928565}
-  - component: {fileID: 8003213324929882678}
-  - component: {fileID: 5006326197061084016}
-  m_Layer: 10
-  m_Name: yellow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8317452031271296794
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2384217193931223830}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.19484518, y: 0.9304633, z: -0.15070212, w: -0.2712236}
-  m_LocalPosition: {x: -0.5532073, y: 2.354562, z: -0.09620541}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 8524656613153486483}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
---- !u!33 &1316465876984506720
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2384217193931223830}
-  m_Mesh: {fileID: 8352397543392040375, guid: 87848ccaafa5bfd4e8614db63eecff74, type: 3}
---- !u!23 &7157074724719928565
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2384217193931223830}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 7096c3820a3751243b65473ca7fe1133, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8003213324929882678
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2384217193931223830}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5006326197061084016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2384217193931223830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 8867811475816522246}
   Debuggable: 0
 --- !u!1 &2466816589117835014
 GameObject:
@@ -3711,7 +3589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 4840623727035576581}
   Debuggable: 0
 --- !u!1 &3493639546340998398
 GameObject:
@@ -4517,7 +4396,7 @@ Transform:
   m_GameObject: {fileID: 4115878872518600847}
   serializedVersion: 2
   m_LocalRotation: {x: 0.15070212, y: -0.2712236, z: 0.19484518, w: -0.9304633}
-  m_LocalPosition: {x: -0.42579496, y: 2.0270047, z: -0.22617176}
+  m_LocalPosition: {x: -0.358, y: 2.048, z: -0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4609,7 +4488,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 597552556711966208}
   Debuggable: 0
 --- !u!1 &4170995041174771061
 GameObject:
@@ -6798,7 +6678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 8867811475816522246}
   Debuggable: 0
 --- !u!1 &6187051008544976466
 GameObject:
@@ -6951,7 +6832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllBlockingBolts:
-  - {fileID: 8317452031271296794}
+  - {fileID: 4702666123227965063}
   AllBlockingMeshes: []
   Debuggable: 0
 --- !u!1 &6368707807961837676
@@ -7477,7 +7358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 2363583482929148130}
   Debuggable: 0
 --- !u!1 &7143570703234310101
 GameObject:

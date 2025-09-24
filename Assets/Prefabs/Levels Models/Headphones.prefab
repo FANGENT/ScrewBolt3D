@@ -276,7 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 5097277315705510191}
   Debuggable: 0
 --- !u!1 &588861135316335064
 GameObject:
@@ -969,13 +970,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298813199436631072}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.18595374, y: 0.5175342, z: 0.062415402, w: -0.8328769}
-  m_LocalPosition: {x: -0.10342239, y: 3.4497283, z: 0.441827}
+  m_LocalRotation: {x: -0.20630965, y: 0.5097615, z: 0.09536042, w: -0.82975054}
+  m_LocalPosition: {x: -0.102, y: 3.428, z: 0.432}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7654153643456438945}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: -194.191, y: 114.054, z: 157.655}
 --- !u!33 &2979406766072123628
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1062,7 +1063,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 2637560408640238106}
+  - {fileID: 4938732471231835155}
   Debuggable: 0
 --- !u!1 &1318596727398716046
 GameObject:
@@ -1308,7 +1311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 939020129171889505}
   Debuggable: 0
 --- !u!1 &1482442661736364023
 GameObject:
@@ -1431,7 +1435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 7473792269649816189}
   Debuggable: 0
 --- !u!1 &1718936428668494970
 GameObject:
@@ -2112,7 +2117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 4938732471231835155}
   Debuggable: 0
 --- !u!1 &1978407389451910765
 GameObject:
@@ -2913,7 +2919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 7325076239591970839}
   Debuggable: 0
 --- !u!1 &2567790056721619726
 GameObject:
@@ -3211,7 +3218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 2407342473261017994}
   Debuggable: 0
 --- !u!1 &3111832319622180499
 GameObject:
@@ -3334,7 +3342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 939020129171889505}
   Debuggable: 0
 --- !u!1 &3130233837573489703
 GameObject:
@@ -3922,7 +3931,7 @@ Transform:
   m_GameObject: {fileID: 3443139831518901538}
   serializedVersion: 2
   m_LocalRotation: {x: -0.30535546, y: 0.7773915, z: -0.057164527, w: 0.54694855}
-  m_LocalPosition: {x: -0.46605664, y: 3.3863115, z: -0.40994513}
+  m_LocalPosition: {x: -0.459, y: 3.373, z: -0.403}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4014,7 +4023,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 658531538457776515}
+  - {fileID: 5489412345693321940}
   Debuggable: 0
 --- !u!1 &3471049099772989474
 GameObject:
@@ -5303,7 +5314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 2290734493506687299}
   Debuggable: 0
 --- !u!1 &5220313272373425167
 GameObject:
@@ -5426,7 +5438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 3613437516165727994}
   Debuggable: 0
 --- !u!1 &5392490234078321666
 GameObject:
@@ -5985,7 +5998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 2290734493506687299}
   Debuggable: 0
 --- !u!1 &6091892543930140147
 GameObject:
@@ -6695,7 +6709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 939020129171889505}
   Debuggable: 0
 --- !u!1 &6975375688669256609
 GameObject:
@@ -6818,7 +6833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 2290734493506687299}
   Debuggable: 0
 --- !u!1 &7069013653811840483
 GameObject:
@@ -6973,7 +6989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 5489412345693321940}
   Debuggable: 0
 --- !u!1 &7340601532216880950
 GameObject:
@@ -7498,7 +7515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 7325076239591970839}
   Debuggable: 0
 --- !u!1 &8084694406302045518
 GameObject:
@@ -7621,7 +7639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 3613437516165727994}
   Debuggable: 0
 --- !u!1 &8092314584915961968
 GameObject:
@@ -7867,7 +7886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 7473792269649816189}
   Debuggable: 0
 --- !u!1 &8250644195182675397
 GameObject:
@@ -8270,7 +8290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 7325076239591970839}
   Debuggable: 0
 --- !u!1 &8959248746727870997
 GameObject:
@@ -8517,7 +8538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllBlockingMeshes:
-  - {fileID: 0}
+  - {fileID: 5097277315705510191}
   Debuggable: 0
 --- !u!1 &9106172078214426559
 GameObject:
@@ -8640,7 +8661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 7473792269649816189}
   Debuggable: 0
 --- !u!1 &9220944878333557627
 GameObject:

@@ -2931,7 +2931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 5158392625075268024}
   Debuggable: 0
 --- !u!135 &8853059863636362822
 SphereCollider:
@@ -3054,7 +3055,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 6355548302785215418}
   Debuggable: 0
 --- !u!135 &5789003118597397192
 SphereCollider:
@@ -5159,7 +5161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 854754624133739550}
   Debuggable: 0
 --- !u!135 &5581484946157639681
 SphereCollider:
@@ -6088,7 +6091,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 8038284358280960516}
   Debuggable: 0
 --- !u!135 &9073510611223331360
 SphereCollider:
@@ -7821,7 +7825,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 8498594031071710086}
   Debuggable: 0
 --- !u!135 &436673622632401059
 SphereCollider:
@@ -8436,7 +8441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 8498594031071710086}
   Debuggable: 0
 --- !u!135 &3235218805234177156
 SphereCollider:
@@ -9330,7 +9336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 3427527870978898199}
   Debuggable: 0
 --- !u!135 &5514982011595686192
 SphereCollider:
@@ -10073,7 +10080,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 8918012585129475422}
   Debuggable: 0
 --- !u!135 &9113225053967919580
 SphereCollider:
@@ -11897,7 +11905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeea3c2edf7d6f42aff7792852c35ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllBlockingMeshes: []
+  AllBlockingMeshes:
+  - {fileID: 1725572795489185357}
   Debuggable: 0
 --- !u!135 &7880515269882028056
 SphereCollider:
