@@ -12356,8 +12356,8 @@ MonoBehaviour:
   levelParent: {fileID: 1418218713}
   currentLevel: 0
   currentModel: {fileID: 0}
-  isTesting: 0
-  testLevel: 1
+  isTesting: 1
+  testLevel: 29
 --- !u!4 &1418218713
 Transform:
   m_ObjectHideFlags: 0
