@@ -33,7 +33,7 @@ public class GameplayUiManager : MonoBehaviour
 
     [Header("Watch Ad related Data for rewards Extra Container")]
     public int maxExtraContainersAllowed = 2;
-    public List<GameObject> extraContainerEmptyButtons = new List<GameObject>();
+    public List<EmptyContainer> extraContainerEmptyButtons = new List<EmptyContainer>();
     public int extraContainerIndex= -1;
 
     private void Awake()
@@ -58,7 +58,7 @@ public class GameplayUiManager : MonoBehaviour
         EmptyContainer[] found = FindObjectsByType<EmptyContainer>(FindObjectsSortMode.None); // true = include inactive
         foreach (var empty in found)
         {
-            extraContainerEmptyButtons.Add(empty.gameObject);
+            extraContainerEmptyButtons.Add(empty);
         }
     }
 
@@ -226,16 +226,23 @@ public class GameplayUiManager : MonoBehaviour
 
         AdsManager.Instance.onRewardedVideoResult -= OnSuccessfullyWatchingExtraContainerAd;
         OnCloseWatchAdPanel();
+        CloseLevelFail();
 
         // decide extra container index
         if (maxExtraContainersAllowed == 2)
         {
-            extraContainerEmptyButtons[1].SetActive(false);
+            if (extraContainerEmptyButtons[0].PlacementIndex == 2)
+            {
+                extraContainerEmptyButtons[0].gameObject.SetActive(false);
+            }
             extraContainerIndex = 2;
         }
         else if (maxExtraContainersAllowed == 1)
         {
-            extraContainerEmptyButtons[0].SetActive(false);
+            if (extraContainerEmptyButtons[1].PlacementIndex == 3)
+            {
+                extraContainerEmptyButtons[1].gameObject.SetActive(false);
+            }
             extraContainerIndex = 3;
         }
             
@@ -259,12 +266,18 @@ public class GameplayUiManager : MonoBehaviour
         // decide extra container index
         if (maxExtraContainersAllowed == 2)
         {
-            extraContainerEmptyButtons[0].SetActive(false);
+            if (extraContainerEmptyButtons[0].PlacementIndex == 2)
+            {
+                extraContainerEmptyButtons[0].gameObject.SetActive(false);
+            }
             extraContainerIndex = 2;
         }
         else if (maxExtraContainersAllowed == 1)
         {
-            extraContainerEmptyButtons[1].SetActive(false);
+            if (extraContainerEmptyButtons[1].PlacementIndex == 3)
+            {
+                extraContainerEmptyButtons[1].gameObject.SetActive(false);
+            }
             extraContainerIndex = 3;
         }
 
