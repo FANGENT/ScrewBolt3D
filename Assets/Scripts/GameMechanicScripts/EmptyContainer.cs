@@ -27,7 +27,7 @@ public class EmptyContainer : MonoBehaviour
 
     void OnClickEmptyContainer()
     {
-        GameplayUiManager.Instance.OnEmptyContainerButtonClicked(PlacementIndex, gameObject);
+        GameplayUiManager.Instance.OnEmptyContainerButtonClicked(PlacementIndex);
     }
 
 }

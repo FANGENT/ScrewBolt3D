@@ -1,5 +1,8 @@
 using DG.Tweening;
+using Mono.Cecil;
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,10 +31,10 @@ public class GameplayUiManager : MonoBehaviour
     public RectTransform starsTarget; // e.g. Canvas or dedicated CoinLayer
     public RectTransform spawnPoint; // Where coins start (e.g. coin counter)
 
-    [Header("Watch Ad related Data for rewards")]
+    [Header("Watch Ad related Data for rewards Extra Container")]
+    public int maxExtraContainersAllowed = 2;
+    public List<GameObject> extraContainerEmptyButtons = new List<GameObject>();
     public int extraContainerIndex= -1;
-    public GameObject extraContainerEmptyButton = null;
-
 
     private void Awake()
     {
@@ -45,6 +48,18 @@ public class GameplayUiManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f; // Ensure time scale is set to normal
+
+        Invoke(nameof(FindAllEmptyContainers), 2f); // slight delay to ensure all EmptyContainer instances are initialized
+    }
+    public void FindAllEmptyContainers()
+    {
+        extraContainerEmptyButtons.Clear(); // clear previous entries
+
+        EmptyContainer[] found = FindObjectsByType<EmptyContainer>(FindObjectsSortMode.None); // true = include inactive
+        foreach (var empty in found)
+        {
+            extraContainerEmptyButtons.Add(empty.gameObject);
+        }
     }
 
 
@@ -114,6 +129,13 @@ public class GameplayUiManager : MonoBehaviour
         levelFailPanel.transform.GetChild(0).localScale = Vector3.zero;
         levelFailPanel.transform.GetChild(0).DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
     }
+    public void CloseLevelFail()
+    {
+        levelFailPanel
+            .transform.GetChild(0).DOScale(Vector3.zero, 0.2f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() => levelFailPanel.SetActive(false));
+    }
 
     public void OnAdNotAvailable()
     {
@@ -133,7 +155,9 @@ public class GameplayUiManager : MonoBehaviour
             .OnComplete(() => adNotAvailablePanel.SetActive(false));
     }
 
-    public void OnEmptyContainerButtonClicked(int placementIdx , GameObject emptyBtn)
+    #region Extra Container Related Methods
+
+    public void OnEmptyContainerButtonClicked(int placementIdx)
     {
         if (SoundManager.Instance)
         {
@@ -144,14 +168,9 @@ public class GameplayUiManager : MonoBehaviour
         watchAdPanel.transform.GetChild(0).localScale = Vector3.zero;
         watchAdPanel.transform.GetChild(0).DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
 
-        //Store placementIdx and emptyBtn to use after ad is watched successfully
+        /*//Store placementIdx and emptyBtn to use after ad is watched successfully
         extraContainerIndex = placementIdx;
-        extraContainerEmptyButton = emptyBtn;
-
-
-        /*BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(placementIdx);
-        emptyBtn.SetActive(false);*/
-
+        extraContainerEmptyButton = emptyBtn;*/
     }
 
     public void OnCloseWatchAdPanel()
@@ -167,55 +186,98 @@ public class GameplayUiManager : MonoBehaviour
             .OnComplete(() => watchAdPanel.SetActive(false));
     }
 
+
     public void OnWatchingExtraContainerAd()
     {
-        if (AdsManager.Instance)
+        TryShowExtraContainerAd(OnCloseWatchAdPanel);
+    }
+
+    public void WatchAdToGetExtraContainerOnLevelFail()
+    {
+        TryShowExtraContainerAd(CloseLevelFail);
+    }
+
+    private void TryShowExtraContainerAd(System.Action onFailAction)
+    {
+        if (AdsManager.Instance == null)
         {
-            if (AdsManager.Instance.HasRewardedVideo())
-            {
-                AdsManager.Instance.onRewardedVideoResult += OnSuccessfullyWatchingExtraContainerAd;
-                AdsManager.Instance.ShowRewardedVideo(RewardType.container, 1);
-            }
-            else
-            {
-                OnCloseWatchAdPanel();
-                OnAdNotAvailable();
-                Debug.Log("No rewarded video available at the moment.");
-            }
+            onFailAction?.Invoke();
+            OnAdNotAvailable();
+            return;
+        }
+
+        if (AdsManager.Instance.HasRewardedVideo())
+        {
+            AdsManager.Instance.onRewardedVideoResult += OnSuccessfullyWatchingExtraContainerAd;
+            AdsManager.Instance.ShowRewardedVideo(RewardType.container, 1);
         }
         else
         {
-            OnCloseWatchAdPanel();
+            onFailAction?.Invoke();
             OnAdNotAvailable();
+            Debug.Log("No rewarded video available at the moment.");
         }
     }
 
     private void OnSuccessfullyWatchingExtraContainerAd(RewardType rewardType, float amount)
     {
-        if (rewardType == RewardType.container)
+        if (rewardType != RewardType.container)
+            return;
+
+        AdsManager.Instance.onRewardedVideoResult -= OnSuccessfullyWatchingExtraContainerAd;
+        OnCloseWatchAdPanel();
+
+        // decide extra container index
+        if (maxExtraContainersAllowed == 2)
         {
-            AdsManager.Instance.onRewardedVideoResult -= OnSuccessfullyWatchingExtraContainerAd;
-            OnCloseWatchAdPanel();
-            //DataManager.instance.AddCoins(100);
-            //PlayCoinUp(startCoinPosition);
-
-            BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(extraContainerIndex);
-            Debug.Log("Extra conatinaer index"+ extraContainerIndex);
-            extraContainerEmptyButton.SetActive(false);
-
-
-
-            AdsManager.Instance.SetEvent("GotExtraContainerByAd");
+            extraContainerEmptyButtons[1].SetActive(false);
+            extraContainerIndex = 2;
         }
+        else if (maxExtraContainersAllowed == 1)
+        {
+            extraContainerEmptyButtons[0].SetActive(false);
+            extraContainerIndex = 3;
+        }
+            
+
+        maxExtraContainersAllowed--;
+        BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(extraContainerIndex);
+
+        Debug.Log("Extra container index: " + extraContainerIndex);
+
+        AdsManager.Instance.SetEvent("GotExtraContainerByAd");
     }
 
-
-
-    public void TestCoinBuy()
+    public void GetExtraContainerWithCoins(int coinCost)
     {
-        //DataManager.instance.AddCoins(1000);
-        PlayCoinUp(settingPanel.GetComponent<RectTransform>());
+        if (DataManager.instance.GetCoins() < coinCost)
+        {
+            Debug.Log("Not enough coins to get extra container.");
+            return;
+        }
+
+        // decide extra container index
+        if (maxExtraContainersAllowed == 2)
+        {
+            extraContainerEmptyButtons[0].SetActive(false);
+            extraContainerIndex = 2;
+        }
+        else if (maxExtraContainersAllowed == 1)
+        {
+            extraContainerEmptyButtons[1].SetActive(false);
+            extraContainerIndex = 3;
+        }
+
+        maxExtraContainersAllowed--;
+
+        DataManager.instance.AddCoins(-coinCost);
+        PlayCoinUp(levelFailPanel.GetComponent<RectTransform>());
+        BoltContainerManager.Instance.MakeNewContainerWhereUnscrewedBoltsCanBePlaced(extraContainerIndex);
+        CloseLevelFail();
+        AdsManager.Instance.SetEvent("GotExtraContainerByCoins");
     }
+
+    #endregion
 
     public void PLayStarAnimationFromPosition(RectTransform spawnPosition)
     {
