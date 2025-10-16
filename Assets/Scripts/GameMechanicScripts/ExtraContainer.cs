@@ -40,6 +40,7 @@ public class ExtraContainer : MonoBehaviour
         {
             Transform FilledBoltReference = FilledBolt;
             FilledBolt = null;
+            GameObject.DestroyImmediate(Placement.GetChild(0).gameObject);
             return FilledBoltReference;
         }
     }

@@ -401,6 +401,7 @@ MonoBehaviour:
   - {fileID: 6303616490363204491}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &119544001980986648
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +431,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2105652322604549629}
   - {fileID: 5775731662183606798}
   - {fileID: 4704881286839453281}
   - {fileID: 9050434045442710589}
@@ -621,6 +621,7 @@ MonoBehaviour:
   - {fileID: 8008713952163531659}
   - {fileID: 2401780444875954027}
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &417499122166924120
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +779,7 @@ MonoBehaviour:
   - {fileID: 4532514818813272210}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &551741040034134778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,6 +1305,7 @@ MonoBehaviour:
   - {fileID: 347569696090976648}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &851203811204298703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,6 +1810,7 @@ MonoBehaviour:
   - {fileID: 8503462038310093812}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &1222923270430196401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,6 +1966,7 @@ MonoBehaviour:
   - {fileID: 1704151017393671522}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &1258342098632140405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2832,6 +2837,7 @@ MonoBehaviour:
   - {fileID: 889503207574449801}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &1813453725577406998
 GameObject:
   m_ObjectHideFlags: 0
@@ -4382,11 +4388,12 @@ MonoBehaviour:
   - {fileID: 3966242093397905316}
   - {fileID: 6632238651426501755}
   AllBlockingMeshes:
-  - {fileID: 2105652322604549629}
+  - {fileID: 0}
   - {fileID: 5719028617746991526}
   - {fileID: 959124782834982820}
   - {fileID: 9114618188811065272}
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &2321697370948011563
 GameObject:
   m_ObjectHideFlags: 0
@@ -4542,6 +4549,7 @@ MonoBehaviour:
   AllBlockingMeshes:
   - {fileID: 4704881286839453281}
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &2566264252355662628
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,6 +4563,7 @@ GameObject:
   - component: {fileID: 1585393135586563180}
   - component: {fileID: 733076796165033926}
   - component: {fileID: 6448910382559123236}
+  - component: {fileID: 2833711344152874015}
   m_Layer: 0
   m_Name: Cylinder.015
   m_TagString: Untagged
@@ -4679,6 +4688,25 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6240159341419647114, guid: d86b2043bef3cca4e84f9369ee893d0f, type: 3}
+--- !u!114 &2833711344152874015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566264252355662628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea3631da0d597a46baa874dcc685c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllBlockingBolts: []
+  AllBlockingMeshes:
+  - {fileID: 863482725504594232}
+  - {fileID: 3635341751057892073}
+  - {fileID: 4299188978383509435}
+  Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &2779715649077794278
 GameObject:
   m_ObjectHideFlags: 0
@@ -5166,6 +5194,7 @@ MonoBehaviour:
   - {fileID: 6634568874430321637}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &3154377782246629898
 GameObject:
   m_ObjectHideFlags: 0
@@ -5971,6 +6000,7 @@ MonoBehaviour:
   - {fileID: 7879908257623616119}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &3732826403214286335
 GameObject:
   m_ObjectHideFlags: 0
@@ -6123,7 +6153,7 @@ Transform:
   m_GameObject: {fileID: 3792712034242995345}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0.7071068, w: -0.7071068}
-  m_LocalPosition: {x: 2.0839, y: 1.2061, z: -1.645}
+  m_LocalPosition: {x: 2.0839, y: 0.545, z: -1.645}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6839,6 +6869,7 @@ MonoBehaviour:
   - {fileID: 7499325276786076491}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &4267937456847033605
 GameObject:
   m_ObjectHideFlags: 0
@@ -7377,6 +7408,7 @@ MonoBehaviour:
   - {fileID: 8374113736752081380}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &4567401567441584056
 GameObject:
   m_ObjectHideFlags: 0
@@ -7532,6 +7564,7 @@ MonoBehaviour:
   - {fileID: 6515262907113167909}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &4570938214408865907
 GameObject:
   m_ObjectHideFlags: 0
@@ -7772,6 +7805,7 @@ MonoBehaviour:
   - {fileID: 993161080919104867}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &4750990175609830428
 GameObject:
   m_ObjectHideFlags: 0
@@ -8649,6 +8683,7 @@ MonoBehaviour:
   - {fileID: 8582651538650724894}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &5337928872485874774
 GameObject:
   m_ObjectHideFlags: 0
@@ -9067,6 +9102,7 @@ MonoBehaviour:
   - {fileID: 2616132383762181198}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &5470786591130661627
 GameObject:
   m_ObjectHideFlags: 0
@@ -9345,6 +9381,7 @@ MonoBehaviour:
   - {fileID: 2206915303275248849}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &5525468464137097985
 GameObject:
   m_ObjectHideFlags: 0
@@ -10547,6 +10584,7 @@ MonoBehaviour:
   - {fileID: 1856713397741620781}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &5843864336885493778
 GameObject:
   m_ObjectHideFlags: 0
@@ -10790,6 +10828,7 @@ MonoBehaviour:
   - {fileID: 762565415052124484}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &5999424077212675760
 GameObject:
   m_ObjectHideFlags: 0
@@ -11192,6 +11231,7 @@ MonoBehaviour:
   - {fileID: 4224598512921921394}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &6155125346735113177
 GameObject:
   m_ObjectHideFlags: 0
@@ -11347,6 +11387,7 @@ MonoBehaviour:
   - {fileID: 5431771423508183543}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &6168284172675625650
 GameObject:
   m_ObjectHideFlags: 0
@@ -11503,6 +11544,7 @@ MonoBehaviour:
   - {fileID: 2426688046675616673}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &6197929348799068095
 GameObject:
   m_ObjectHideFlags: 0
@@ -11639,6 +11681,7 @@ GameObject:
   - component: {fileID: 2902001457499500013}
   - component: {fileID: 5103108893575260579}
   - component: {fileID: 6099372824223207224}
+  - component: {fileID: 174383432679091364}
   m_Layer: 0
   m_Name: Cube.009
   m_TagString: Untagged
@@ -11764,6 +11807,71 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2477511411847689622, guid: d86b2043bef3cca4e84f9369ee893d0f, type: 3}
+--- !u!114 &174383432679091364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6240401857219637302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea3631da0d597a46baa874dcc685c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllBlockingBolts:
+  - {fileID: 1856713397741620781}
+  - {fileID: 8563406759734354200}
+  - {fileID: 762565415052124484}
+  - {fileID: 8582651538650724894}
+  - {fileID: 5538304110621682678}
+  - {fileID: 2483804125150476306}
+  - {fileID: 2426688046675616673}
+  - {fileID: 1322703467948663542}
+  - {fileID: 1227748613596699455}
+  - {fileID: 686060073775357641}
+  - {fileID: 8805060835753661115}
+  - {fileID: 5888741503369993828}
+  - {fileID: 4917384296030361008}
+  - {fileID: 6303616490363204491}
+  - {fileID: 592517674594717710}
+  - {fileID: 3966242093397905316}
+  - {fileID: 6632238651426501755}
+  - {fileID: 2616132383762181198}
+  - {fileID: 993161080919104867}
+  - {fileID: 7879908257623616119}
+  - {fileID: 9196144128523730875}
+  - {fileID: 4388081747021406128}
+  - {fileID: 4224598512921921394}
+  - {fileID: 6543503800093112221}
+  - {fileID: 2902126443388645275}
+  - {fileID: 1467955132695273949}
+  - {fileID: 7499325276786076491}
+  - {fileID: 347569696090976648}
+  - {fileID: 4532514818813272210}
+  - {fileID: 179426841560732828}
+  - {fileID: 889503207574449801}
+  - {fileID: 5762401929259505051}
+  - {fileID: 1704151017393671522}
+  - {fileID: 8400218449463551666}
+  - {fileID: 6634568874430321637}
+  - {fileID: 5431771423508183543}
+  - {fileID: 428182889846663273}
+  - {fileID: 8656518844729417609}
+  - {fileID: 8400482967089341949}
+  - {fileID: 8503462038310093812}
+  - {fileID: 5078807036369865053}
+  - {fileID: 122117696013354236}
+  - {fileID: 5180321357647351315}
+  - {fileID: 2410738638478638301}
+  - {fileID: 8374113736752081380}
+  - {fileID: 6938723381642179623}
+  - {fileID: 8335050931349944376}
+  - {fileID: 6515262907113167909}
+  - {fileID: 2206915303275248849}
+  AllBlockingMeshes: []
+  Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &6276374400412255503
 GameObject:
   m_ObjectHideFlags: 0
@@ -11923,6 +12031,7 @@ MonoBehaviour:
   - {fileID: 5180321357647351315}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &6429367155934116202
 GameObject:
   m_ObjectHideFlags: 0
@@ -12583,6 +12692,7 @@ MonoBehaviour:
   - {fileID: 122117696013354236}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &6748818594867875584
 GameObject:
   m_ObjectHideFlags: 0
@@ -13359,6 +13469,7 @@ MonoBehaviour:
   - {fileID: 4388081747021406128}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &7149536780115764336
 GameObject:
   m_ObjectHideFlags: 0
@@ -13738,6 +13849,7 @@ MonoBehaviour:
   AllBlockingMeshes:
   - {fileID: 9050434045442710589}
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &7801913863722266419
 GameObject:
   m_ObjectHideFlags: 0
@@ -14146,6 +14258,7 @@ MonoBehaviour:
   - {fileID: 5538304110621682678}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &8251764160261545031
 GameObject:
   m_ObjectHideFlags: 0
@@ -15170,6 +15283,7 @@ MonoBehaviour:
   - {fileID: 5888741503369993828}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &8757460861795364226
 GameObject:
   m_ObjectHideFlags: 0
@@ -15621,6 +15735,7 @@ MonoBehaviour:
   - {fileID: 2483804125150476306}
   AllBlockingMeshes: []
   Debuggable: 0
+  AlreadyFallen: 0
 --- !u!1 &9213938325331481472
 GameObject:
   m_ObjectHideFlags: 0
@@ -15775,179 +15890,7 @@ MonoBehaviour:
   AllBlockingBolts: []
   AllBlockingMeshes: []
   Debuggable: 0
---- !u!1001 &3766891619454493004
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5923539951823557042}
-    m_Modifications:
-    - target: {fileID: 2465079734990110219, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_Name
-      value: Barrel_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.0788238
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.542
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.6369519
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3106456634001428597, guid: af0251662ce5880478fc4015a2c7df13, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2465079734990110219, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6492322217126558139}
-    - targetCorrespondingSourceObject: {fileID: 2465079734990110219, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7359647301805860270}
-    - targetCorrespondingSourceObject: {fileID: 2465079734990110219, guid: af0251662ce5880478fc4015a2c7df13,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1621574946371735058}
-  m_SourcePrefab: {fileID: 100100000, guid: af0251662ce5880478fc4015a2c7df13, type: 3}
---- !u!1 &1617662036024647495 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2465079734990110219, guid: af0251662ce5880478fc4015a2c7df13,
-    type: 3}
-  m_PrefabInstance: {fileID: 3766891619454493004}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &6492322217126558139
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617662036024647495}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!64 &7359647301805860270
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617662036024647495}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2102965883132702965, guid: 4b794b6ae7f5ee74fa07f8325d11e9e9, type: 3}
---- !u!114 &1621574946371735058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617662036024647495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea3631da0d597a46baa874dcc685c0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AllBlockingBolts:
-  - {fileID: 4917384296030361008}
-  AllBlockingMeshes: []
-  Debuggable: 0
---- !u!4 &2105652322604549629 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
-    type: 3}
-  m_PrefabInstance: {fileID: 3766891619454493004}
-  m_PrefabAsset: {fileID: 0}
+  AlreadyFallen: 0
 --- !u!1001 &7633380202486556337
 PrefabInstance:
   m_ObjectHideFlags: 0

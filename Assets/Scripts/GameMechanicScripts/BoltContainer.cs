@@ -53,19 +53,6 @@ public class BoltContainer : MonoBehaviour
             if (FilledBolts[i] == null)
             {
                 FilledBolts[i] = UnscrewedBolt;
-
-                //--A
-                //Decrement here, only when a bolt is actually placed
-                ModelController.Instance.modelAttributes.UpdatingRemainingBolts(ContainerColorName, 1);
-                ModelController.Instance.modelAttributes.CheckRemainingBoltsCounts();
-
-                //Optional: check level completion immediately
-                if (ModelController.Instance.modelAttributes.CheckIfAllBoltsAreRemoved())
-                {
-                    Debug.Log("Game Is Completed");
-                    GameplayUiManager.Instance.OnLevelComplete();
-                }
-
                 CheckIfThisContainerIsFilledCompletelyWithBolts();
                 return Placements[i];
             }

@@ -106,24 +106,28 @@ public class BoltContainerManager : MonoBehaviour
             }
         }
     }
-
     public void MakeNewContainerWhereUnscrewedBoltsCanBePlaced(int PlacementIndex)
     {
-
-        int selectedIndex = -1;
-        List<int> availableIndexes = new List<int>();
-
-        for (int i = 0; i < ModelController.Instance.modelAttributes.TotalNumberOfColors; i++)
+        if (ModelController.Instance.modelAttributes.CheckIfGameIsCompleted())
         {
-            if (ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(i) > 0)
-            {
-                availableIndexes.Add(i);
-            }
+            Debug.Log("Game Is Completed");
+            GameplayUiManager.Instance.OnLevelComplete();
         }
 
-        // Pick random valid color
-        selectedIndex = availableIndexes[Random.Range(0, availableIndexes.Count)];
+        int selectedIndex = Random.Range(0, ModelController.Instance.modelAttributes.TotalNumberOfColors);
         int remainingBolts = ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(selectedIndex);
+        if (remainingBolts == 0)
+        {
+            if (ModelController.Instance.modelAttributes.CheckIfAllBoltsAreRemoved())
+            {
+                return;
+            }
+            else
+            {
+                selectedIndex = ModelController.Instance.modelAttributes.GetNotZeroBoltIndex();
+                remainingBolts = ModelController.Instance.modelAttributes.GetNumberOfRemainingBoltsByIndex(selectedIndex);
+            }
+        }
 
 
         GameObject newContainer;
@@ -154,6 +158,12 @@ public class BoltContainerManager : MonoBehaviour
             return;
         }
 
+
+        ModelController.Instance.modelAttributes.UpdatingRemainingBolts
+            (
+            ModelController.Instance.modelAttributes.GetColorNameByIndex(selectedIndex),
+            numberOfContainerHoles
+            );
         newContainer.GetComponent<BoltContainer>().InitializeThisContainer(
             PlacementIndex,
             ModelController.Instance.modelAttributes.GetColorByIndex(selectedIndex),
@@ -193,21 +203,26 @@ public class BoltContainerManager : MonoBehaviour
                 Transform Placement = newlyMadeContainer.PlaceInThisContainerIfPossible(MatchingBoltFoundInExtraContainer);
                 if (Placement)
                 {
-                    MatchingBoltFoundInExtraContainer.parent = Placement;
+                    GameObject newObject = new GameObject("reference for bolt");
+                    newObject.AddComponent<Follower>();
+                    newObject.transform.parent = Placement;
+                    newObject.transform.localPosition = Vector3.zero;
+                    newObject.GetComponent<Follower>().TargetedBolt = MatchingBoltFoundInExtraContainer.transform;
+
                     Sequence seq = DOTween.Sequence();
-                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DOLocalRotate(new Vector3(1440, 0, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
-                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DOMove(MatchingBoltFoundInExtraContainer.transform.position - MatchingBoltFoundInExtraContainer.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear)/*.OnComplete(() => MatchingBoltFoundInExtraContainer.transform.SetParent(null))*/);
 
-                    seq.Append(MatchingBoltFoundInExtraContainer.transform.DOMove(Placement.position, 0.2f)/*.OnComplete(()=> )*/);
-                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DORotate(new Vector3(0, 90, 0), 0.2f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+                    newObject.GetComponent<Follower>().TargetedSequence = seq;
 
-                    seq.onComplete = () =>
-                    {
-                        //--A Bolt is placed in the container now, so reset its scale to normal
-                        MatchingBoltFoundInExtraContainer.transform.localScale = Vector3.one * 1.2f;
-                        MatchingBoltFoundInExtraContainer.gameObject.layer = LayerMask.NameToLayer("UI");
-                    };
+                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DORotate(new Vector3(720, 0, 0), 0.3f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear));
+                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DOMove(MatchingBoltFoundInExtraContainer.transform.position + MatchingBoltFoundInExtraContainer.transform.right * 0.5f, 0.3f).SetEase(Ease.Linear));
 
+
+                    seq.Append(MatchingBoltFoundInExtraContainer.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.4f));
+                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DORotate(new Vector3(15, 125, 25), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DOScale(Vector3.one, 0.2f));
+
+                    seq.Append(MatchingBoltFoundInExtraContainer.transform.DOMove(Placement.position, 0.3f));
+                    seq.Join(MatchingBoltFoundInExtraContainer.transform.DORotate(new Vector3(0, 90, 0), 0.3f, RotateMode.Fast).SetEase(Ease.Linear));
 
                     seq.Play();
                 }

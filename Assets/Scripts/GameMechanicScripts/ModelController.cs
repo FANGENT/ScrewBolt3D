@@ -58,7 +58,7 @@ public class ModelController : MonoBehaviour
         float targetFOV = Mathf.Lerp(maxZoom, minZoom, normalizedValue);
 
         // Instantly set FOV (no smoothness)
-        mainCamera.fieldOfView = targetFOV;
+        modelAttributes.transform.localScale = Vector3.one * (1 + (zoomSlider.value * 2.0f));
 
 
         if (Input.touchCount > 0)
@@ -171,37 +171,51 @@ public class ModelController : MonoBehaviour
         }
 
         Bolt.GetComponent<Collider>().enabled = false;
-        Bolt.transform.parent = Placement;
+        Bolt.transform.parent = null;
+
+        GameObject newObject = new GameObject("reference for bolt");
+        newObject.AddComponent<Follower>();
+        newObject.transform.parent = Placement;
+        newObject.transform.localPosition = Vector3.zero;
+        newObject.GetComponent<Follower>().TargetedBolt = Bolt.transform;
+
         CheckIfAnyPartOfModelCanFall();
-
         Sequence seq = DOTween.Sequence();
-        seq.Join(Bolt.transform.DOLocalRotate(new Vector3(45, 0, 0), 0.3f, RotateMode.FastBeyond360).SetEase(Ease.Linear));
-        seq.Join(Bolt.transform.DOMove(Bolt.transform.position - Bolt.transform.right * 0.5f, 0.2f).SetEase(Ease.Linear));
+
+        newObject.GetComponent<Follower>().TargetedSequence = seq;
+
+        seq.Join(Bolt.transform.DORotate(new Vector3(720, 0, 0), 0.3f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.DOMove(Bolt.transform.position + Bolt.transform.right * 0.5f, 0.3f).SetEase(Ease.Linear).OnComplete(()=> Bolt.gameObject.layer = LayerMask.NameToLayer("UI")));
 
 
-        seq.Append(Bolt.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.5f));
+        seq.Append(Bolt.transform.DOMove(Placement.position + new Vector3(-0.2f, 0.3f, 0), 0.4f));
         seq.Join(Bolt.transform.DORotate(new Vector3(15, 125, 25), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.DOScale(Vector3.one, 0.2f));
 
         seq.Append(Bolt.transform.DOMove(Placement.position, 0.3f));
-        seq.Join(Bolt.transform.DORotate(new Vector3(0, 90, 0), 0.2f, RotateMode.Fast).SetEase(Ease.Linear));
+        seq.Join(Bolt.transform.DORotate(new Vector3(0, 90, 0), 0.3f, RotateMode.Fast).SetEase(Ease.Linear));
 
+
+
+
+        //Bolt.gameObject.layer = LayerMask.NameToLayer("UI");
 
         // On Complete
-        seq.OnPlay(() =>
-        {
-            Bolt.transform.SetParent(Placement);
+        //seq.OnPlay(() =>
+        //{
+        //    Bolt.transform.SetParent(Placement);
 
-            if (Bolt.GetComponentInParent<ExtraContainer>())
-            {
-                Bolt.transform.localScale = Vector3.one * 200f;
-            }
-            else
-            {
-                Bolt.transform.localScale = Vector3.one * 1.3f;
-            }
+        //    if (Bolt.GetComponentInParent<ExtraContainer>())
+        //    {
+        //        Bolt.transform.localScale = Vector3.one * 200f;
+        //    }
+        //    else
+        //    {
+        //        Bolt.transform.localScale = Vector3.one * 1.3f;
+        //    }
 
-            Bolt.gameObject.layer = LayerMask.NameToLayer("UI");
-        });
+        //    Bolt.gameObject.layer = LayerMask.NameToLayer("UI");
+        //});
 
         if (SoundManager.Instance)
         {

@@ -92,14 +92,22 @@ public class ModelAttributes : MonoBehaviour
 
     public bool CheckIfAllBoltsAreRemoved()
     {
-        for(int i = 0; i < RemainingExistingColorCount.Count; i++)
+        for (int i = 0; i < RemainingExistingColorCount.Count; i++)
         {
-            if(RemainingExistingColorCount[i] > 0)
+            if (RemainingExistingColorCount[i] > 0)
             {
                 return false;
             }
         }
         return true;
+    }
+    public bool CheckIfGameIsCompleted()
+    {
+        if (ModelPartsContainer.childCount == 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     public int GetNotZeroBoltIndex()
@@ -154,15 +162,28 @@ public class ModelAttributes : MonoBehaviour
     }
     public void MakeNecessaryPartsFall()
     {
+        //for (int i = 0; i < ModelParts.Length; i++)
+        //{
+        //    if (ModelParts[i] && ModelParts[i].CheckIfItCanFall())
+        //    {
+        //        for (int j = 0; j < i; j++)
+        //        {
+        //            if (ModelParts[j])
+        //            {
+        //                ModelParts[j].CheckIfItCanFall();
+        //            }
+        //        }
+        //    }
+        //}
         for (int i = 0; i < ModelParts.Length; i++)
         {
-            if (ModelParts[i] && ModelParts[i].CheckIfItCanFall())
+            if (ModelParts[i])
             {
-                for (int j = 0; j < i; j++)
+                if (!ModelParts[i].AlreadyFallen)
                 {
-                    if (ModelParts[j])
+                    if (ModelParts[i].CheckIfItCanFall())
                     {
-                        ModelParts[j].CheckIfItCanFall();
+                        MakeNecessaryPartsFall();
                     }
                 }
             }

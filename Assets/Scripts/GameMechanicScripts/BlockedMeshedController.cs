@@ -5,12 +5,14 @@ public class BlockedMeshedController : MonoBehaviour
     public Transform[] AllBlockingBolts;
     public Transform[] AllBlockingMeshes;
     public bool Debuggable = false;
+    public bool AlreadyFallen = false;
     public bool CheckIfItCanFall()
     {
         if (AllBlockingBoltsAreRemoved() && AllBlockingMeshesAreRemoved())
         {
             GetComponent<Rigidbody>().isKinematic = false;
             transform.parent = null;
+            AlreadyFallen = true;
             return true;
         }
         return false;
