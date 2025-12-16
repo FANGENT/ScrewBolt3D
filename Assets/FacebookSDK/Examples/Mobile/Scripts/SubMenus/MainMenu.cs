@@ -172,10 +172,10 @@ namespace Facebook.Unity.Example
             {
                 this.SwitchMenu(typeof(AppEvents));
             }
-            /*if (this.Button("IAP"))
+            if (this.Button("IAP"))
             {
                 this.SwitchMenu(typeof(IAP));
-            }*/
+            }
 
             if (this.Button("App Links"))
             {

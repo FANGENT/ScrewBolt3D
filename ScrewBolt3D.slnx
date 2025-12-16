@@ -1,0 +1,15 @@
+﻿<Solution>
+  <Project Path="BuildReportTool.csproj" />
+  <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="ParticleImage.csproj" />
+  <Project Path="CandyCoded.HapticFeedback.iOS.csproj" />
+  <Project Path="MaxSdk.Scripts.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="ParticleImage.Editor.csproj" />
+  <Project Path="MaxSdk.Scripts.IntegrationManager.Editor.csproj" />
+  <Project Path="GoogleMobileAds.Editor.csproj" />
+  <Project Path="CandyCoded.HapticFeedback.csproj" />
+  <Project Path="CandyCoded.HapticFeedback.Android.csproj" />
+</Solution>

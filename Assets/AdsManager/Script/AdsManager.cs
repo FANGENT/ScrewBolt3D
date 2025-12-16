@@ -1,31 +1,51 @@
-﻿using GoogleMobileAds.Api;
-using GoogleMobileAds.Common;
-using System;
-using UnityEngine;
-using SystemInfoLib;
-using GameAnalyticsSDK;
+﻿using System;
 using System.Collections.Generic;
+using AppLovinMax; // MAX Unity plugin
+using GameAnalyticsSDK;
+using SystemInfoLib;
+using UnityEngine;
 
 public enum RewardType
 {
-    cash, gold, grenade, coins, container, 
+    cash,
+    gold,
+    grenade,
+    coins,
+    container,
 }
+
 public class AdsManager : MonoBehaviour
 {
     public static AdsManager Instance;
     public DialogBox dialogBox;
     public Canvas canvas;
 
-    [Header("AdMob Ids")]
+    [Header("AppLovin MAX Ids")]
     [Space(5)]
+    [Tooltip("MAX SDK Key")]
     public string AppId;
+
     [Space(5)]
+    [Tooltip("MAX Banner Ad Unit Id")]
     public string bannerId;
+
+    [Tooltip("MAX Interstitial Ad Unit Id")]
     public string interstitialId;
+
+    [Tooltip("MAX Rewarded Ad Unit Id")]
     public string rewardedVideoId;
+
+    [Tooltip("MAX Rewarded Interstitial Ad Unit Id")]
     public string rewardedInterstitial;
+
+    [Tooltip(
+        "Optional: used only to enable extra logging, does NOT change ad unit ids like AdMob test ids"
+    )]
+    public string tenjinSDKKey;
     public bool testMode;
+
     Purchaser purchaser;
+
     public delegate void OnRewardedVideoResult(RewardType rewardType, float RewardAmount);
     public event OnRewardedVideoResult onRewardedVideoResult;
 
@@ -36,11 +56,27 @@ public class AdsManager : MonoBehaviour
     public delegate void OnPurchaseSuccess(string sku);
     public event OnPurchaseSuccess onPurchaseSuccess;
 
+    // Internal state for rewards
+    private RewardType _rewardType;
+    private float _rewardAmount;
+
+    // Retry counters (optional, simple exponential backoff)
+    private int interstitialRetryAttempt;
+    private int rewardedRetryAttempt;
+    private int rewardedInterstitialRetryAttempt;
+
+    // Simple guard flags so we don't register callbacks multiple times
+    private bool bannerCallbacksRegistered;
+    private bool interstitialCallbacksRegistered;
+    private bool rewardedCallbacksRegistered;
+    private bool rewardedInterstitialCallbacksRegistered;
+    private bool bannerCreated;
 
     private void Awake()
     {
         if (GetComponent<Purchaser>())
             purchaser = GetComponent<Purchaser>();
+
         if (Instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -52,11 +88,9 @@ public class AdsManager : MonoBehaviour
         }
     }
 
-
-    // Use this for initialization
     void Start()
     {
-        InitializeAdmob();
+        InitializeAdmob(); // now initializes MAX
         GameAnalytics.Initialize();
         GameAnalytics.onInitialize += GameAnalytics_onInitialize;
     }
@@ -77,338 +111,532 @@ public class AdsManager : MonoBehaviour
     {
         print("HandleMediationTestSuiteDismissed event received");
     }
-    #region Admob
+
+    #region AppLovin MAX (replacing AdMob)
 
     void InitializeAdmob()
     {
-        MobileAds.Initialize((InitializationStatus initStatus) =>
+        if (string.IsNullOrEmpty(AppId))
         {
-            // This callback is called once the MobileAds SDK is initialized.
+            Debug.LogError("MAX SDK Key (AppId) is empty. Please assign it in AdsManager.");
+        }
+
+        if (testMode)
+        {
+            // Just more logs – does not create test ad ids like AdMob
+            MaxSdk.SetVerboseLogging(true);
+        }
+        BaseTenjin instance = Tenjin.getInstance(tenjinSDKKey);
+        string analyticsID = instance.GetAnalyticsInstallationId();
+        MaxSdk.SetUserId(analyticsID);
+        // Initialize MAX
+        MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfig) =>
+        {
+            Debug.Log("MAX SDK Initialized");
+
+            // After MAX is ready, set up and load all formats
             RequestBanner();
             RequestInterstitial();
             RequestRewardBasedVideo();
             LoadRewardedInterstitialAd();
-        });
+        };
+
+        MaxSdk.SetSdkKey(AppId);
+        MaxSdk.InitializeSdk();
     }
 
-    #region Properties
+    #region Banner
 
-    private BannerView _bannerView;
-    private InterstitialAd _interstitialAd;
-    private RewardedAd _rewardedAd;
+    private void RequestBanner()
+    {
+        if (bannerCallbacksRegistered)
+            return;
+
+        if (string.IsNullOrEmpty(bannerId))
+        {
+            Debug.LogWarning("MAX Banner adUnitId is empty.");
+            return;
+        }
+
+        bannerCallbacksRegistered = true;
+
+        // Attach callbacks
+        MaxSdkCallbacks.Banner.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
+        {
+            Debug.Log("MAX Banner loaded: " + adUnitId);
+        };
+
+        MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += (
+            string adUnitId,
+            MaxSdkBase.ErrorInfo errorInfo
+        ) =>
+        {
+            Debug.LogWarning("MAX Banner failed to load: " + errorInfo.Message);
+        };
+
+        MaxSdkCallbacks.Banner.OnAdClickedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
+        {
+            Debug.Log("MAX Banner clicked: " + adUnitId);
+        };
+
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += (
+            string adUnitId,
+            MaxSdkBase.AdInfo adInfo
+        ) => {
+            // You can forward revenue info to analytics here if needed
+            // Debug.Log($"MAX Banner revenue: {adInfo.Revenue}");
+        };
+
+        // Create banner at bottom (similar to AdMob AdPosition.Bottom)
+        Debug.Log("Creating MAX banner");
+        MaxSdk.CreateBanner(bannerId, MaxSdkBase.BannerPosition.BottomCenter);
+        // Start hidden; you control visibility via ShowBanner / HideBanner
+        MaxSdk.HideBanner(bannerId);
+
+        bannerCreated = true;
+    }
+
+    /// <summary>
+    /// In AdMob this explicitly loaded the banner.
+    /// For MAX, creating the banner already begins loading, so here we just ensure it's created.
+    /// </summary>
+    public void LoadBannerAd()
+    {
+        if (!bannerCreated)
+        {
+            RequestBanner();
+        }
+        // No-op otherwise; banner auto-loads via MAX
+    }
+
+    public void DestroyBannerAd()
+    {
+        if (!string.IsNullOrEmpty(bannerId))
+        {
+            Debug.Log("Destroying MAX banner");
+            MaxSdk.DestroyBanner(bannerId);
+            bannerCreated = false;
+            bannerCallbacksRegistered = false;
+        }
+    }
 
     #endregion
 
-    #region PrivateMethods
+    #region Interstitial
 
-    private RewardedInterstitialAd _rewardedInterstitialAd;
+    private void RequestInterstitial()
+    {
+        if (interstitialCallbacksRegistered)
+            return;
+
+        if (string.IsNullOrEmpty(interstitialId))
+        {
+            Debug.LogWarning("MAX Interstitial adUnitId is empty.");
+            return;
+        }
+
+        interstitialCallbacksRegistered = true;
+
+        // Attach callbacks
+        MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnInterstitialLoadedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnInterstitialLoadFailedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += OnInterstitialDisplayedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdClickedEvent += OnInterstitialClickedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnInterstitialHiddenEvent;
+        MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnInterstitialFailedToDisplayEvent;
+        MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnInterstitialRevenuePaidEvent;
+
+        Debug.Log("Loading MAX interstitial");
+        MaxSdk.LoadInterstitial(interstitialId);
+    }
+
+    private void LoadInterstitial()
+    {
+        if (string.IsNullOrEmpty(interstitialId))
+            return;
+
+        MaxSdk.LoadInterstitial(interstitialId);
+    }
+
+    private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Interstitial loaded");
+        interstitialRetryAttempt = 0;
+    }
+
+    private void OnInterstitialLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
+    {
+        Debug.LogWarning("MAX Interstitial failed to load: " + errorInfo.Message);
+
+        interstitialRetryAttempt++;
+        double retryDelay = Math.Pow(2, Math.Min(6, interstitialRetryAttempt));
+        Invoke(nameof(LoadInterstitial), (float)retryDelay);
+    }
+
+    private void OnInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Interstitial displayed");
+    }
+
+    private void OnInterstitialFailedToDisplayEvent(
+        string adUnitId,
+        MaxSdkBase.ErrorInfo errorInfo,
+        MaxSdkBase.AdInfo adInfo
+    )
+    {
+        Debug.LogWarning("MAX Interstitial failed to display: " + errorInfo.Message);
+        LoadInterstitial();
+    }
+
+    private void OnInterstitialClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Interstitial clicked");
+    }
+
+    private void OnInterstitialHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Interstitial hidden, pre-loading next");
+        LoadInterstitial();
+    }
+
+    private void OnInterstitialRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        // Use for ILRD if you want
+        // Debug.Log($"MAX Interstitial revenue: {adInfo.Revenue}");
+    }
+
+    #endregion
+
+    #region Rewarded
+
+    private void RequestRewardBasedVideo()
+    {
+        if (rewardedCallbacksRegistered)
+            return;
+
+        if (string.IsNullOrEmpty(rewardedVideoId))
+        {
+            Debug.LogWarning("MAX Rewarded adUnitId is empty.");
+            return;
+        }
+
+        rewardedCallbacksRegistered = true;
+
+        // Attach callbacks
+        MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnRewardedAdLoadedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += OnRewardedAdLoadFailedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += OnRewardedAdDisplayedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdClickedEvent += OnRewardedAdClickedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnRewardedAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnRewardedAdHiddenEvent;
+        MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent += OnRewardedAdFailedToDisplayEvent;
+        MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnRewardedAdReceivedRewardEvent;
+
+        Debug.Log("Loading MAX rewarded ad");
+        LoadRewardedAd();
+    }
+
+    private void LoadRewardedAd()
+    {
+        if (string.IsNullOrEmpty(rewardedVideoId))
+            return;
+
+        MaxSdk.LoadRewardedAd(rewardedVideoId);
+    }
+
+    private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Rewarded loaded");
+        rewardedRetryAttempt = 0;
+    }
+
+    private void OnRewardedAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
+    {
+        Debug.LogWarning("MAX Rewarded failed to load: " + errorInfo.Message);
+
+        rewardedRetryAttempt++;
+        double retryDelay = Math.Pow(2, Math.Min(6, rewardedRetryAttempt));
+        Invoke(nameof(LoadRewardedAd), (float)retryDelay);
+    }
+
+    private void OnRewardedAdDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Rewarded displayed");
+    }
+
+    private void OnRewardedAdFailedToDisplayEvent(
+        string adUnitId,
+        MaxSdkBase.ErrorInfo errorInfo,
+        MaxSdkBase.AdInfo adInfo
+    )
+    {
+        Debug.LogWarning("MAX Rewarded failed to display: " + errorInfo.Message);
+        LoadRewardedAd();
+    }
+
+    private void OnRewardedAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Rewarded clicked");
+    }
+
+    private void OnRewardedAdHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Rewarded hidden, pre-loading next");
+        LoadRewardedAd();
+    }
+
+    private void OnRewardedAdReceivedRewardEvent(
+        string adUnitId,
+        MaxSdk.Reward reward,
+        MaxSdkBase.AdInfo adInfo
+    )
+    {
+        Debug.Log($"MAX Rewarded user: {reward.Amount} {reward.Label}");
+
+        if (onRewardedVideoResult != null)
+            onRewardedVideoResult(_rewardType, _rewardAmount);
+    }
+
+    private void OnRewardedAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        // Use for ILRD if you need
+        // Debug.Log($"MAX Rewarded revenue: {adInfo.Revenue}");
+    }
+
+    #endregion
+
+    #region Rewarded Interstitial
 
     /// <summary>
     /// Loads the rewarded interstitial ad.
     /// </summary>
     public void LoadRewardedInterstitialAd()
     {
-        // Clean up the old ad before loading a new one.
-        if (_rewardedInterstitialAd != null)
+        if (rewardedInterstitialCallbacksRegistered)
+            return;
+
+        if (string.IsNullOrEmpty(rewardedInterstitial))
         {
-            _rewardedInterstitialAd.Destroy();
-            _rewardedInterstitialAd = null;
+            Debug.LogWarning("MAX Rewarded Interstitial adUnitId is empty.");
+            return;
         }
 
-        Debug.Log("Loading the rewarded interstitial ad.");
+        rewardedInterstitialCallbacksRegistered = true;
 
-        // create our request used to load the ad.
-        var adRequest = new AdRequest();
+        // Attach callbacks
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdLoadedEvent += OnRewardedInterstitialLoadedEvent;
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdLoadFailedEvent += OnRewardedInterstitialLoadFailedEvent;
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdDisplayedEvent += OnRewardedInterstitialDisplayedEvent;
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdClickedEvent += OnRewardedInterstitialClickedEvent;
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdHiddenEvent += OnRewardedInterstitialHiddenEvent;
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdDisplayFailedEvent += OnRewardedInterstitialFailedToDisplayEvent;
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdReceivedRewardEvent += OnRewardedInterstitialReceivedRewardEvent;
+        // MaxSdkCallbacks.RewardedInterstitial.OnAdRevenuePaidEvent += OnRewardedInterstitialRevenuePaidEvent;
 
-        // send the request to load the ad.
-        RewardedInterstitialAd.Load(rewardedInterstitial, adRequest,
-            (RewardedInterstitialAd ad, LoadAdError error) =>
-            {
-                // if error is not null, the load request failed.
-                if (error != null || ad == null)
-                {
-                    Debug.LogError("rewarded interstitial ad failed to load an ad " +
-                                   "with error : " + error);
-                    return;
-                }
-
-                Debug.Log("Rewarded interstitial ad loaded with response : "
-                          + ad.GetResponseInfo());
-
-                _rewardedInterstitialAd = ad;
-            });
+        Debug.Log("Loading MAX rewarded interstitial ad");
+        LoadRewardedInterstitial();
     }
-    public void ShowRewardedInterstitialAd(RewardType rewardType, float rewardAmount)
+
+    private void LoadRewardedInterstitial()
     {
-        const string rewardMsg =
-            "Rewarded interstitial ad rewarded the user. Type: {0}, amount: {1}.";
+        if (string.IsNullOrEmpty(rewardedInterstitial))
+            return;
 
-        if (_rewardedInterstitialAd != null && _rewardedInterstitialAd.CanShowAd())
-        {
-            _rewardType = rewardType;
-            _rewardAmount = rewardAmount;
-            _rewardedInterstitialAd.Show((Reward reward) =>
-            {
-
-                // TODO: Reward the user.
-                if (onRewardedVideoResult != null)
-                {
-                    onRewardedVideoResult(_rewardType, _rewardAmount);
-                }
-                Debug.Log(String.Format(rewardMsg, reward.Type, reward.Amount));
-            });
-        }
+        //MaxSdk.LoadRewardedInterstitialAd(rewardedInterstitial);
     }
-    private void RequestBanner()
+
+    private void OnRewardedInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        if (testMode)
-        {
-            bannerId = "ca-app-pub-3940256099942544/6300978111";
-        }
-        Debug.Log("Creating banner view");
-
-        // If we already have a banner, destroy the old one.
-        if (_bannerView != null)
-        {
-            DestroyBannerAd();
-        }
-
-        // Create a 320x50 banner at top of the screen
-        _bannerView = new BannerView(bannerId, AdSize.Banner, AdPosition.Bottom);
+        Debug.Log("MAX Rewarded Interstitial loaded");
+        rewardedInterstitialRetryAttempt = 0;
     }
-    /// <summary>
-    /// Creates the banner view and loads a banner ad.
-    /// </summary>
-    public void LoadBannerAd()
+
+    private void OnRewardedInterstitialLoadFailedEvent(
+        string adUnitId,
+        MaxSdkBase.ErrorInfo errorInfo
+    )
     {
-        // create an instance of a banner view first.
-        if (_bannerView == null)
+        Debug.LogWarning("MAX Rewarded Interstitial failed to load: " + errorInfo.Message);
+
+        rewardedInterstitialRetryAttempt++;
+        double retryDelay = Math.Pow(2, Math.Min(6, rewardedInterstitialRetryAttempt));
+        Invoke(nameof(LoadRewardedInterstitial), (float)retryDelay);
+    }
+
+    private void OnRewardedInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Rewarded Interstitial displayed");
+    }
+
+    private void OnRewardedInterstitialFailedToDisplayEvent(
+        string adUnitId,
+        MaxSdkBase.ErrorInfo errorInfo,
+        MaxSdkBase.AdInfo adInfo
+    )
+    {
+        Debug.LogWarning("MAX Rewarded Interstitial failed to display: " + errorInfo.Message);
+        LoadRewardedInterstitial();
+    }
+
+    private void OnRewardedInterstitialClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Rewarded Interstitial clicked");
+    }
+
+    private void OnRewardedInterstitialHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        Debug.Log("MAX Rewarded Interstitial hidden, pre-loading next");
+        LoadRewardedInterstitial();
+    }
+
+    private void OnRewardedInterstitialReceivedRewardEvent(
+        string adUnitId,
+        MaxSdk.Reward reward,
+        MaxSdkBase.AdInfo adInfo
+    )
+    {
+        Debug.Log($"MAX Rewarded Interstitial user: {reward.Amount} {reward.Label}");
+
+        if (onRewardedVideoResult != null)
+            onRewardedVideoResult(_rewardType, _rewardAmount);
+    }
+
+    private void OnRewardedInterstitialRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        // ILRD if needed
+    }
+
+    #endregion
+
+    #region Public Methods (same interface as before)
+
+    public void ShowBanner()
+    {
+        print("AdsLogs_ShowingBanner (MAX)");
+        if (!bannerCreated)
         {
             RequestBanner();
         }
 
-        // create our request used to load the ad.
-        var adRequest = new AdRequest();
-
-        // send the request to load the ad.
-        Debug.Log("Loading banner ad.");
-        _bannerView.LoadAd(adRequest);
-    }
-
-    /// <summary>
-    /// Destroys the banner view.
-    /// </summary>
-    public void DestroyBannerAd()
-    {
-        if (_bannerView != null)
+        if (!string.IsNullOrEmpty(bannerId))
         {
-            Debug.Log("Destroying banner view.");
-            _bannerView.Destroy();
-            _bannerView = null;
+            MaxSdk.ShowBanner(bannerId);
         }
-    }
-    /// <summary>
-    /// provide interstital Object and its Id according to its placement
-    /// </summary>
-    /// <param name="_interstitialAd"></param>
-    /// <param name="adId"></param>
-    private void RequestInterstitial()
-    {
-        if (testMode)
-        {
-            interstitialId = "ca-app-pub-3940256099942544/1033173712";
-        }
-        // Clean up the old ad before loading a new one.
-        if (_interstitialAd != null)
-        {
-            _interstitialAd.Destroy();
-            _interstitialAd = null;
-        }
-
-        Debug.Log("Loading the interstitial ad.");
-
-        // create our request used to load the ad.
-        var adRequest = new AdRequest();
-
-        // send the request to load the ad.
-        InterstitialAd.Load(interstitialId, adRequest,
-            (InterstitialAd ad, LoadAdError error) =>
-            {
-                // if error is not null, the load request failed.
-                if (error != null || ad == null)
-                {
-                    Debug.LogError("interstitial ad failed to load an ad " +
-                                   "with error : " + error);
-                    return;
-                }
-
-                Debug.Log("Interstitial ad loaded with response : "
-                          + ad.GetResponseInfo());
-
-                _interstitialAd = ad;
-            });
-    }
-
-    private void RequestRewardBasedVideo()
-    {
-        if (testMode)
-        {
-            rewardedVideoId = "ca-app-pub-3940256099942544/5224354917";
-        }
-        // Clean up the old ad before loading a new one.
-        if (_rewardedAd != null)
-        {
-            _rewardedAd.Destroy();
-            _rewardedAd = null;
-        }
-
-        Debug.Log("Loading the rewarded ad.");
-
-        // create our request used to load the ad.
-        var adRequest = new AdRequest();
-
-        // send the request to load the ad.
-        RewardedAd.Load(rewardedVideoId, adRequest,
-            (RewardedAd ad, LoadAdError error) =>
-            {
-                // if error is not null, the load request failed.
-                if (error != null || ad == null)
-                {
-                    Debug.LogError("Rewarded ad failed to load an ad " +
-                                   "with error : " + error);
-                    return;
-                }
-
-                Debug.Log("Rewarded ad loaded with response : "
-                          + ad.GetResponseInfo());
-
-                _rewardedAd = ad;
-                _rewardedAd.OnAdPaid += _rewardedAd_OnAdPaid;
-
-            });
-    }
-
-    private void _rewardedAd_OnAdPaid(AdValue obj)
-    {
-        //onRewardedVideoResult(_rewardType, _rewardAmount);
-        print("rewarded ad paid");
-    }
-
-
-    #endregion
-
-    #region public Methods
-    public void ShowBanner()
-    {
-        print("AdsLogs_ShowingBanner");
-        _bannerView.Show();
-
     }
 
     public void HideBanner()
     {
-        print("AdsLogs_HideBanner");
-        _bannerView.Hide();
+        print("AdsLogs_HideBanner (MAX)");
+        if (!string.IsNullOrEmpty(bannerId))
+        {
+            MaxSdk.HideBanner(bannerId);
+        }
     }
 
     private bool HasInterstitial()
     {
-        if (_interstitialAd.CanShowAd())
+        if (!string.IsNullOrEmpty(interstitialId) && MaxSdk.IsInterstitialReady(interstitialId))
         {
             return true;
         }
-        RequestInterstitial();
+
+        LoadInterstitial();
         return false;
     }
+
     public void ShowInterstitial()
     {
-        if (_interstitialAd.CanShowAd())
+        if (!string.IsNullOrEmpty(interstitialId) && MaxSdk.IsInterstitialReady(interstitialId))
         {
-            print("AdsLogs_ShowingInterstital");
-            _interstitialAd.Show();
+            print("AdsLogs_ShowingInterstital (MAX)");
+            MaxSdk.ShowInterstitial(interstitialId);
         }
         else
         {
-            print("AdsLogs_InterstitialNotLoaded, ForceFully Showing");
-            RequestInterstitial();
+            print("AdsLogs_InterstitialNotLoaded, loading with MAX");
+            LoadInterstitial();
         }
     }
-    RewardType _rewardType; float _rewardAmount;
+
+    public void ShowRewardedInterstitialAd(RewardType rewardType, float rewardAmount)
+    {
+        _rewardType = rewardType;
+        _rewardAmount = rewardAmount;
+
+        //         if (!string.IsNullOrEmpty(rewardedInterstitial)
+        //             && MaxSdk.IsRewardedInterstitialAdReady(rewardedInterstitial)
+        // )
+        //         {
+        //             Debug.Log("Showing MAX Rewarded Interstitial");
+        //             MaxSdk.ShowRewardedInterstitialAd(rewardedInterstitial);
+        //         }
+        //         else
+        //         {
+        //             Debug.LogWarning("MAX Rewarded Interstitial not ready, loading now");
+        //             LoadRewardedInterstitial();
+        //         }
+    }
 
     public void ShowRewardedVideo(RewardType rewardType, float rewardAmount)
     {
-        const string rewardMsg =
-        "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
+        _rewardType = rewardType;
+        _rewardAmount = rewardAmount;
 
-        if (_rewardedAd != null && _rewardedAd.CanShowAd())
+        if (!string.IsNullOrEmpty(rewardedVideoId) && MaxSdk.IsRewardedAdReady(rewardedVideoId))
         {
-            _rewardType = rewardType;
-            _rewardAmount = rewardAmount;
-            _rewardedAd.Show((Reward reward) =>
-            {
-                // TODO: Reward the user.
-                if (onRewardedVideoResult != null)
-                    onRewardedVideoResult(_rewardType, _rewardAmount);
-
-                Debug.Log(String.Format(rewardMsg, reward.Type, reward.Amount));
-            });
+            print("AdsLogs_ShowingRewarded (MAX)");
+            MaxSdk.ShowRewardedAd(rewardedVideoId);
         }
         else
         {
-            print("AdsLogs_RewardBasedVideoNotLoaded");
+            print("AdsLogs_RewardedNotLoaded, trying RewardedInterstitial (MAX)");
+            // fallback to rewarded interstitial as before
             ShowRewardedInterstitialAd(_rewardType, _rewardAmount);
-            RequestRewardBasedVideo();
+            LoadRewardedAd();
         }
     }
 
     public bool HasRewardedVideo()
     {
-        if (_rewardedAd.CanShowAd())
+        if (!string.IsNullOrEmpty(rewardedVideoId) && MaxSdk.IsRewardedAdReady(rewardedVideoId))
         {
             return true;
-        }
-        else if (_rewardedInterstitialAd.CanShowAd())
-        {
-            return true;
-
         }
         else
         {
             return false;
         }
     }
-    #endregion
 
     #endregion
 
+    #endregion // MAX region
 
     #region Analytics
 
-    // Call when a game or level starts
     public static void SetEventGameStart(string levelName)
     {
         Debug.Log($"GameAnalytics - GameStart: {levelName}");
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, levelName);
     }
 
-    // Call when a game or level is completed
     public static void SetEventGameComplete(string levelName, int score = 0)
     {
         Debug.Log($"GameAnalytics - GameComplete: {levelName}, Score: {score}");
 
-        // Mark progression complete
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, levelName);
 
-        // Optionally log design event with score
         if (score > 0)
         {
             GameAnalytics.NewDesignEvent($"LevelComplete:{levelName}:Score", score);
         }
     }
+
     public void SetEvent(string eventName)
     {
         GameAnalytics.NewDesignEvent($"Event:{eventName}");
     }
+
     #endregion
 
     #region DialogBoxes
@@ -417,10 +645,12 @@ public class AdsManager : MonoBehaviour
     {
         canvas = _canvas;
     }
+
     public Canvas GetCanvas()
     {
         return canvas;
     }
+
     public void FindCanvas()
     {
         int sortOrder = -1000;
@@ -434,11 +664,15 @@ public class AdsManager : MonoBehaviour
         }
     }
 
-
-    public void ShowDialogBox(string _dialogName, string _heading, string _description, string _positiveButtonName = "", string _negativeButtonName = "", Sprite _displayImage = null)
+    public void ShowDialogBox(
+        string _dialogName,
+        string _heading,
+        string _description,
+        string _positiveButtonName = "",
+        string _negativeButtonName = "",
+        Sprite _displayImage = null
+    )
     {
-
-
         if (GetCanvas() == null)
         {
             FindCanvas();
@@ -449,12 +683,14 @@ public class AdsManager : MonoBehaviour
             print("hello");
             _dialogBox.autoDestruct = true;
         }
-        //_dialogBox.transform.parent = canvas.transform;
-        //_dialogBox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        //_dialogBox.GetComponent<RectTransform>().anchorMin = Vector2.zero;
-        //_dialogBox.GetComponent<RectTransform>().anchorMax = Vector2.one;
-        _dialogBox.SetDialogBoxDetails(_dialogName, _heading, _description, _positiveButtonName, _negativeButtonName, _displayImage);
-
+        _dialogBox.SetDialogBoxDetails(
+            _dialogName,
+            _heading,
+            _description,
+            _positiveButtonName,
+            _negativeButtonName,
+            _displayImage
+        );
     }
 
     public void ShowRateUsDialog()
@@ -463,7 +699,13 @@ public class AdsManager : MonoBehaviour
         {
             return;
         }
-        ShowDialogBox("RateUs", "will you rate our game?", "your feedback will be very usefull for us", "Yes", "Not Now");
+        ShowDialogBox(
+            "RateUs",
+            "will you rate our game?",
+            "your feedback will be very usefull for us",
+            "Yes",
+            "Not Now"
+        );
     }
 
     public void ShowRemoveAdsDialog()
@@ -473,12 +715,22 @@ public class AdsManager : MonoBehaviour
             return;
         }
         if (string.IsNullOrEmpty(purchaser.GetLocalizedPrice("remove_ads")))
-            ShowDialogBox("RemoveAds", "Remove all ads?", "remove all annoying ads in just 2.99 USD", "Remove Now", "Not Now");
-
+            ShowDialogBox(
+                "RemoveAds",
+                "Remove all ads?",
+                "remove all annoying ads in just 2.99 USD",
+                "Remove Now",
+                "Not Now"
+            );
         else
-            ShowDialogBox("RemoveAds", "Remove all ads?", "remove all annoying ads in just " + purchaser.GetLocalizedPrice("remove_ads"), "Remove Now", "Not Now");
+            ShowDialogBox(
+                "RemoveAds",
+                "Remove all ads?",
+                "remove all annoying ads in just " + purchaser.GetLocalizedPrice("remove_ads"),
+                "Remove Now",
+                "Not Now"
+            );
     }
-
 
     #endregion
 
@@ -498,28 +750,6 @@ public class AdsManager : MonoBehaviour
     }
 
     #endregion
-    #region Handlers
-    private void RegisterReloadHandler(RewardedAd ad)
-    {
-        // Raised when the ad closed full screen content.
-        ad.OnAdFullScreenContentClosed += () =>
-        {
-            Debug.Log("Rewarded Ad full screen content closed.");
-
-            // Reload the ad so that we can show another as soon as possible.
-            RequestRewardBasedVideo();
-        };
-        // Raised when the ad failed to open full screen content.
-        ad.OnAdFullScreenContentFailed += (AdError error) =>
-        {
-            Debug.LogError("Rewarded ad failed to open full screen content " +
-                           "with error : " + error);
-
-            // Reload the ad so that we can show another as soon as possible.
-            RequestRewardBasedVideo();
-        };
-    }
-    #endregion
 
     #region InApps
 
@@ -527,10 +757,12 @@ public class AdsManager : MonoBehaviour
     {
         purchaser.BuyConsumable(sku);
     }
+
     public void PurchaseSuccessful(string sku)
     {
         if (onPurchaseSuccess != null)
             onPurchaseSuccess(sku);
     }
+
     #endregion
 }
